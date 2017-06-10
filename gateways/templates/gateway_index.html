@@ -1,0 +1,294 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+        <!-- page content -->
+
+        <div class="right_col" role="main">
+
+
+          <!-- content -->
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Gateway Information <small>Custom design</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <div class="x_content">
+                    <div class="table-responsive">
+                      <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                          <tr class="headings">
+                            <th>
+                              <input type="checkbox" id="check-all" class="flat">
+                            </th>
+
+                            <th class="column-title">No.</th>
+
+                            <th class="column-title">Gateway ID</th>
+                            <th class="column-title">Title</th>
+
+                            <th class="column-title">Model</th>
+                            <th class="column-title">Location</th>
+                            <th class="column-title">Version</th>
+                            <th class="column-title">Enable</th>
+                            <th class="column-title">Status</th>
+                            <th class="column-title no-link last"><span class="nobr">Action</span>
+                            </th>
+                            <th class="bulk-actions" colspan="9">
+                              <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                            </th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+
+
+                          <tr class="even pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records">
+                            </td>
+                            <td class=" ">1</td>
+                            <td class=" ">T6CN470S0011 </td>
+                            <td class=" ">曙光基站 <i class="success fa fa-long-arrow-up"></i></td>
+                            <td class=" ">TBG-510</td>
+                            <td class=" ">[ E: 113.376266 | N: 23.169518 ]</td>
+                            <td class="a-right a-right ">2.1.1.435_RC</td>
+                            <td class=" "><span class="glyphicon glyphicon-ok  green" aria-hidden="true"></span></td>
+                            <td class=" ">online</td>
+                            
+                            <td class=" last">
+                            <a href="#"><span class="glyphicon glyphicon-pencil  blue" aria-hidden="true"></span></a>
+                            <a href="#"><span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true"></span></a>
+                              </td>
+                          </tr>
+                          <tr class="odd pointer">
+                            <td class="a-center ">
+                              <input type="checkbox" class="flat" name="table_records">
+                            </td>
+
+                            <td class=" ">2</td>
+                            <td class=" ">T6CN470S0012 </td>
+                            <td class=" ">方大基站 <i class="success fa fa-long-arrow-up"></i></td>
+                            <td class=" ">TBG-510</td>
+                            <td class=" ">[ E: 113.376266 | N: 23.169520 ]</td>
+                            <td class="a-right a-right ">2.1.1.435_RC</td>
+                            <td class=" "><span class="glyphicon glyphicon-ok  green" aria-hidden="true"></span></td>
+                            <td class=" ">online</td>
+                            
+                            <td class=" last">
+                            <a href="#"><span class="glyphicon glyphicon-pencil  blue" aria-hidden="true"></span></a>
+                            <a href="#"><span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true"></span></a>
+                              </td>
+                          </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+          <!-- /content -->
+
+          <!-- content 2-->
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Gateways Location<small></h2>
+
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <div id="geo_map" class="x_content" style="height:460px;">
+
+                  </div>
+
+                </div>
+              </div>
+
+          <!-- /content 2-->
+          <div class="clearfix"></div>
+
+          </div>
+        <!-- /page content -->
+
+{% endblock %}
+
+
+{% block script %}
+
+    <!-- jQuery -->
+    <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <!-- FastClick -->
+    <script src="{% static 'vendors/fastclick/lib/fastclick.js' %}"></script>
+    <!-- NProgress -->
+    <script src="{% static 'vendors/nprogress/nprogress.js' %}"></script>
+    <!-- iCheck -->
+    <script src="{% static 'vendors/iCheck/icheck.min.js' %}"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{% static 'build/js/custom.min.js' %}"></script>
+
+
+
+<!-- Geomap --> 
+    <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="https://webapi.amap.com/maps?v=1.3&key=9f0903994aaaca5964b34106c4520dee"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <style type="text/css">
+        .info {
+            border: solid 1px silver;
+        }
+        div.info-top {
+            position: relative;
+            background: none repeat scroll 0 0 #F9F9F9;
+            border-bottom: 1px solid #CCC;
+            border-radius: 5px 5px 0 0;
+        }
+        div.info-top div {
+            display: inline-block;
+            color: #333333;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 31px;
+            padding: 0 10px;
+        }
+        div.info-top img {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            transition-duration: 0.25s;
+        }
+        div.info-top img:hover {
+            box-shadow: 0px 0px 5px #000;
+        }
+        div.info-middle {
+            font-size: 12px;
+            padding: 6px;
+            line-height: 20px;
+        }
+        div.info-bottom {
+            height: 0px;
+            width: 100%;
+            clear: both;
+            text-align: center;
+        }
+        div.info-bottom img {
+            position: relative;
+            z-index: 104;
+        }
+        span {
+            margin-left: 5px;
+            font-size: 11px;
+        }
+        .info-middle img {
+            float: left;
+            margin-right: 6px;
+        }
+    </style>
+<script type="text/javascript">
+  //地图初始化时，在地图上添加一个marker标记,鼠标点击marker可弹出自定义的信息窗体
+    var map = new AMap.Map("geo_map", {
+        resizeEnable: true,
+        center: [113.95736,22.53765],
+        zoom: 16
+    });    
+
+    addMarker(113.95736,22.53765, "曙光基站");
+    addMarker(113.95836,22.53865, "方大基站");
+
+    //添加marker标记
+    function addMarker(l, s, data) {
+        //map.clearMap();
+        var marker = new AMap.Marker({
+            map: map,
+            position: [l, s]
+        });
+        //鼠标点击marker弹出自定义的信息窗体
+        AMap.event.addListener(marker, 'click', function() {
+            infoWindow.open(map, marker.getPosition());
+        });
+    
+
+    //实例化信息窗体
+    var title = data + '<span style="font-size:11px;color:#F00;">价格:318</span>',
+        content = [];
+    content.push("<img src='https://tpc.googlesyndication.com/simgad/5843493769827749134'>地址：北京市朝阳区阜通东大街6号院3号楼东北8.3公里");
+    content.push("电话：010-64733333");
+    content.push("<a href='https://ditu.amap.com/detail/B000A8URXB?citycode=110105'>详细信息</a>");
+    var infoWindow = new AMap.InfoWindow({
+        isCustom: true,  //使用自定义窗体
+        content: createInfoWindow(title, content.join("<br/>")),
+        offset: new AMap.Pixel(16, -45)
+    });
+
+    }
+
+
+    //构建自定义信息窗体
+    function createInfoWindow(title, content) {
+        var info = document.createElement("div");
+        info.className = "info";
+
+        //可以通过下面的方式修改自定义窗体的宽高
+        //info.style.width = "400px";
+        // 定义顶部标题
+        var top = document.createElement("div");
+        var titleD = document.createElement("div");
+        var closeX = document.createElement("img");
+        top.className = "info-top";
+        titleD.innerHTML = title;
+        closeX.src = "https://webapi.amap.com/images/close2.gif";
+        closeX.onclick = closeInfoWindow;
+
+        top.appendChild(titleD);
+        top.appendChild(closeX);
+        info.appendChild(top);
+
+        // 定义中部内容
+        var middle = document.createElement("div");
+        middle.className = "info-middle";
+        middle.style.backgroundColor = 'white';
+        middle.innerHTML = content;
+        info.appendChild(middle);
+
+        // 定义底部内容
+        var bottom = document.createElement("div");
+        bottom.className = "info-bottom";
+        bottom.style.position = 'relative';
+        bottom.style.top = '0px';
+        bottom.style.margin = '0 auto';
+        var sharp = document.createElement("img");
+        sharp.src = "https://webapi.amap.com/images/sharp.png";
+        bottom.appendChild(sharp);
+        info.appendChild(bottom);
+        return info;
+    }
+
+    //关闭信息窗体
+    function closeInfoWindow() {
+        map.clearInfoWindow();
+    }
+</script>
+<script type="text/javascript" src="https://webapi.amap.com/demos/js/liteToolbar.js"></script>
+  
+{% endblock %}

@@ -1,0 +1,329 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+        <!-- page content -->
+
+        <div class="right_col" role="main">
+          <!-- content -->
+            <p>hhh</p>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+
+                  <div class="x_title">
+                    <h2>Node Information</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <div class="x_content">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Type</th>
+                          <th>Value</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">DevEUI</th>
+                          <td>FF00640000000546</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">DevAddr</th>
+                          <td>FF000546</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">AppEUI</th>
+                          <td>FF00640000000545</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">AppKey</th>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">AppSKey</th>
+                          <td>A2F3B4C5D5F7C7D4A2F3B4C5D5F7C7D4</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">NwkSKey</th>
+                          <td>A2F3B4C5D5F7C7D4A2F3B4C5D5F7C7D4</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">AppEUI</th>
+                          <td>FF00640000000545</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Regist Time</th>
+                          <td>2017-04-14 10:22:27</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Frequency Band Name</th>
+                          <td>CN470</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">ADR Enable</th>
+                          <td>
+                            <select class="form-control">
+                              <option>Enabled</option>
+                              <option>Disabled</option>
+                            </select>                            
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Message Aggregation Time (ms)</th>
+                          <td>50</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">First Receive Window Duration (s)</th>
+                          <td>
+                            <select class="form-control">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Mote Enabled</th>
+                          <td><span class="glyphicon glyphicon-ok  green" aria-hidden="true"></span></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Rx2 Receive Window Frequency (MHz)</th>
+                          <td>
+                            <input type="text" name="Rx2Frequency" id="autocomplete-custom-append" class="form-control col-md-10" autocomplete="off">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Rx2 Receive Window Data Rate</th>
+                          <td>
+                            <input type="text" name="Rx2Rate" id="autocomplete-custom-append" class="form-control col-md-10" autocomplete="off">
+                          </td>
+                        </tr>                                        
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+
+          <!-- /content -->
+
+          <!-- <br /> -->
+
+          <!-- content 2-->
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Last Data</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <!-- <th>#</th> -->
+                          <th>Type</th>
+                          <th>Value</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <!-- <th scope="row">1</th> -->
+                          <th scope="row">Gateway Time</th>
+                          <td>2017-04-14T11:10:25.340429Z</td>
+                        </tr>
+                        <tr>
+                          <!-- <th scope="row">2</th> -->
+                          <th scope="row">Gateway ID</th>
+                          <td>T6CN470S0009</td>
+                        </tr>
+                        <tr>
+                          <!-- <th scope="row">3</th> -->
+                          <th scope="row">Gateway Channel</th>
+                          <td>2</td>
+                        </tr>
+                        <tr>
+                          <!-- <th scope="row">3</th> -->
+                          <th scope="row">Frequecy (MHz)</th>
+                          <td>470.700</td>
+                        </tr>
+                        <tr>
+                          <!-- <th scope="row">3</th> -->
+                          <th scope="row">DataRate</th>
+                          <td>SF12BW125</td>
+                        </tr>
+                        <tr>
+                          <!-- <th scope="row">3</th> -->
+                          <th scope="row">RSSI</th>
+                          <td>-58</td>
+                        </tr>
+                        <tr>
+                          <!-- <th scope="row">3</th> -->
+                          <th scope="row">SNR</th>
+                          <td>6.800</td>
+                        </tr>
+                        <tr>
+                          <!-- <th scope="row">3</th> -->
+                          <th scope="row">FCntUp </th>
+                          <td>3</td>
+                        </tr>
+                        <tr>
+                          <!-- <th scope="row">3</th> -->
+                          <th scope="row">FCntDown</th>
+                          <td>4</td>
+                        </tr>                                        
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+
+          <!-- /content 2-->
+
+          <!-- content 3-->
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Controls</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Type</th>
+                          <th>Value</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">Send message to this node</th>
+                          <td>
+                              <span class="glyphicon glyphicon-envelope blue" aria-hidden="true"></span> 
+
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Enabled/Disable this node</th>
+                          <td>
+                              <span class="glyphicon glyphicon-pencil  blue" aria-hidden="true"></span> 
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Delete this node</th>
+                          <td>
+                              <span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true"></span> 
+                            
+                          </td>
+                        </tr>                                        
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+
+          <!-- /content 3-->
+
+          <!-- content 4-->
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Controls</h2>
+
+                  </div>
+                  <div id="geo_map" class="x_content">
+                  <div ></div>
+
+
+                  </div>
+                </div>
+              </div>
+
+          <!-- /content 4-->          
+            <div class="clearfix"></div>
+
+
+
+
+
+     </div>
+        <!-- /page content -->
+{% endblock %}
+
+
+
+{% block script %}
+    <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+
+        $("p").click(function(){
+
+          alert("daniel");
+          $.get("map_uri" ,function(data,status){
+          $("result").html(data);
+
+        });
+
+        });
+
+
+
+    });
+
+  </script>
+
+
+{% endblock %}
