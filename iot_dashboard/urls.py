@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
+from . import views
 
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -35,7 +36,8 @@ router.register(r'users', UserViewSet)
 
 
 urlpatterns = [
-    url(r'^', include(router.urls)),  ###REST Framework
+    url(r'^$',views.index),
+    url(r'^api', include(router.urls)),  ###REST Framework
 
     url(r'^admin/', admin.site.urls),
 
