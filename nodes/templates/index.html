@@ -42,7 +42,7 @@
                   <a href="/api">                
                     <div class="icon"><i class="fa fa-bar-chart"></i></div>
                     <div class="count">179</div>
-                    <h3>API Exxhange</h3>
+                    <h3>API Exchange</h3>
                     <p>click to view.</p>
                   </a>
                 </div>
@@ -53,11 +53,11 @@
               <div class="col-md-12 col-lg-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Transaction Summary <small>Weekly progress</small></h2>
+                    <h2>Data Summary <small>Weekly progress</small></h2>
                     <div class="filter">
                       <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
                         <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                        <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
+                        <span>January 30, 2017 - July 28, 2017</span> <b class="caret"></b>
                       </div>
                     </div>
                     <div class="clearfix"></div>
@@ -67,7 +67,7 @@
                       <div class="demo-container" style="height:280px">
                         <div id="placeholder33x" class="demo-placeholder"></div>
                       </div>
-                      <div class="tiles">
+<!--                       <div class="tiles">
                         <div class="col-md-4 tile">
                           <span>Total Sessions</span>
                           <h2>231,809</h2>
@@ -89,7 +89,7 @@
                                           <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                                       </span>
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
 
@@ -148,7 +148,6 @@
     
 
 
-{% endblock %}
 
     <!-- Flot -->
     <script>
@@ -294,121 +293,12 @@
     </script>
     <!-- /jQuery Sparklines -->
 
-    <!-- Doughnut Chart -->
-    <script>
-      $(document).ready(function() {
-        var canvasDoughnut,
-            options = {
-              legend: false,
-              responsive: false
-            };
 
-        new Chart(document.getElementById("canvas1i"), {
-          type: 'doughnut',
-          tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-          data: {
-            labels: [
-              "Symbian",
-              "Blackberry",
-              "Other",
-              "Android",
-              "IOS"
-            ],
-            datasets: [{
-              data: [15, 20, 30, 10, 30],
-              backgroundColor: [
-                "#BDC3C7",
-                "#9B59B6",
-                "#E74C3C",
-                "#26B99A",
-                "#3498DB"
-              ],
-              hoverBackgroundColor: [
-                "#CFD4D8",
-                "#B370CF",
-                "#E95E4F",
-                "#36CAAB",
-                "#49A9EA"
-              ]
-
-            }]
-          },
-          options: options
-        });
-
-        new Chart(document.getElementById("canvas1i2"), {
-          type: 'doughnut',
-          tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-          data: {
-            labels: [
-              "Symbian",
-              "Blackberry",
-              "Other",
-              "Android",
-              "IOS"
-            ],
-            datasets: [{
-              data: [15, 20, 30, 10, 30],
-              backgroundColor: [
-                "#BDC3C7",
-                "#9B59B6",
-                "#E74C3C",
-                "#26B99A",
-                "#3498DB"
-              ],
-              hoverBackgroundColor: [
-                "#CFD4D8",
-                "#B370CF",
-                "#E95E4F",
-                "#36CAAB",
-                "#49A9EA"
-              ]
-
-            }]
-          },
-          options: options
-        });
-
-        new Chart(document.getElementById("canvas1i3"), {
-          type: 'doughnut',
-          tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-          data: {
-            labels: [
-              "Symbian",
-              "Blackberry",
-              "Other",
-              "Android",
-              "IOS"
-            ],
-            datasets: [{
-              data: [15, 20, 30, 10, 30],
-              backgroundColor: [
-                "#BDC3C7",
-                "#9B59B6",
-                "#E74C3C",
-                "#26B99A",
-                "#3498DB"
-              ],
-              hoverBackgroundColor: [
-                "#CFD4D8",
-                "#B370CF",
-                "#E95E4F",
-                "#36CAAB",
-                "#49A9EA"
-              ]
-
-            }]
-          },
-          options: options
-        });
-      });
-    </script>
-    <!-- /Doughnut Chart -->
 
     <!-- bootstrap-daterangepicker -->
-    <script type="text/javascript">
+    <script>
       $(document).ready(function() {
-
+        alert("daniel")
         var cb = function(start, end, label) {
           console.log(start.toISOString(), end.toISOString(), label);
           $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
@@ -477,6 +367,8 @@
         });
       });
     </script>
+{% endblock %}
+
     <!-- /bootstrap-daterangepicker -->
   </body>
 </html>
