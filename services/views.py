@@ -7,3 +7,10 @@ def index(request):
 
 	}
 	return render(request, template, context)
+
+def add_service(request):
+    template = "service_add.html"
+    context = {
+
+    }
+    return render(request, template, context)
