@@ -8,8 +8,15 @@ def index(request):
 	}
 	return render(request, template, context)
 
-def add_service(request):
+def service_add(request):
     template = "service_add.html"
+    context = {
+
+    }
+    return render(request, template, context)
+
+def service_detail(request):
+    template = "service_detail.html"
     context = {
 
     }

@@ -1,18 +1,75 @@
 from django.db import models
-# from pygments.lexers import get_all_lexers
-# from pygments.styles import get_all_styles
+from django.utils import timezone
 
-# LEXERS = [item for item in get_all_lexers() if item[1]]
-# LANGUAGE_CHOICES = sorted([(item[1][0], item[0]) for item in LEXERS])
-# STYLE_CHOICES = sorted((item, item) for item in get_all_styles())
+
+#from nodes.fields import ListField
+from gateways.models import Gateway
+from services.models import Service
 
 
 class Node(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    name = models.CharField(max_length=100, blank=True, default='')
-    application = models.CharField(max_length=100, blank=True, default='')    
-    data = models.TextField()
+    node_id = models.CharField(max_length=64, default='ffff')
+    node_name = models.CharField(max_length=64, default='no name')
 
+    DEVICE_TYPE_CHOICES = (
+        ('sensor', 'sensor'),
+        ('switch', 'switch'),
+        ('buzzer', 'buzzer'),
+        ('others', 'others'),
+    )
+    node_type = models.CharField(max_length=64, choices=DEVICE_TYPE_CHOICES, default='sensor',)
+
+    latitude = models.DecimalField(max_digits=4, decimal_places=2, default=0.00,)
+    longitude = models.DecimalField(max_digits=4, decimal_places=2, default=0.00,)
+
+    register_time = models.DateTimeField(auto_now_add=True)
+    Lastalive_time = models.DateTimeField(default=timezone.now)
+    device_status = models.CharField(max_length=32, choices=(('ENABLED', 'ENABLED'), ('DISABLED', 'DISABLED')), default='ENABLED',)
+
+    service = models.ForeignKey('services.Service')
+    #datas = ListField(max_length=100, default=[])
 
     class Meta:
-        ordering = ('created',)
+        ordering = ('node_id', 'node_type', 'register_time')
+        #abstract = True
+
+    def __str__(self):
+        return str(self.node_name)
+
+
+class LoRaNode(Node):
+    EUI = models.CharField(max_length=64, default='ffff')
+    DevAddr = models.GenericIPAddressField(protocol='both', unpack_ipv4=True,  default='127.0.0.1')
+    AppKey = models.CharField(max_length=256, default='')
+    NwkSKey = models.CharField(max_length=256, default='')
+    AppSKey = models.CharField(max_length=254, default='')
+
+    class Meta:
+        ordering = ('EUI', 'node_type', 'register_time')
+
+
+class NodeRawData(models.Model):
+    data = models.CharField(max_length=128, default='')
+    node = models.ForeignKey('LoRaNode', on_delete=models.SET_NULL, blank=True, null=True,)
+    gateway = models.ForeignKey('gateways.Gateway', on_delete=models.SET_NULL, blank=True, null=True,)
+    time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.data)
+
+
+class ServiceData(models.Model):
+    info1 = models.CharField(max_length=128, default='')
+    info2 = models.CharField(max_length=128, default='')
+    info3 = models.CharField(max_length=128, default='')
+
+    data1 = models.CharField(max_length=128, default='')
+    data2 = models.CharField(max_length=128, default='')
+    data3 = models.CharField(max_length=128, default='')
+
+    node = models.ForeignKey('LoRaNode', on_delete=models.SET_NULL, blank=True, null=True,)
+    gateway = models.ForeignKey('gateways.Gateway', on_delete=models.SET_NULL, blank=True, null=True,)
+    time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.data1)
