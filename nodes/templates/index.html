@@ -161,12 +161,16 @@
         };
 
         var d1 = [];
-        //var d2 = [];
+        var d2 = [];
+        var d3 = [];
 
         //here we generate data for chart
         for (var i = 0; i < 30; i++) {
           d1.push([new Date(Date.today().add(i).days()).getTime(), randNum() + i + i + 10]);
-          //    d2.push([new Date(Date.today().add(i).days()).getTime(), randNum()]);
+
+             d2.push([new Date(Date.today().add(i).days()).getTime(), randNum()]);
+             d3.push([new Date(Date.today().add(i).days()).getTime(), randNum() + i  + 10 ]);
+
         }
 
         var chartMinDate = d1[0][0]; //first day
@@ -241,7 +245,7 @@
           }
         };
         var plot = $.plot($("#placeholder33x"), [{
-          label: "Email Sent",
+          label: "Service Num",
           data: d1,
           lines: {
             fillColor: "rgba(150, 202, 89, 0.12)"
@@ -249,7 +253,33 @@
           points: {
             fillColor: "#fff"
           }
-        }], options);
+        }, 
+        //second line
+        {
+          label: "Gateway Num",
+          data: d2,
+          lines: {
+            fillColor: "rgba(150, 202, 89, 0.12)"
+          }, //#96CA59 rgba(150, 202, 89, 0.42)
+          points: {
+            fillColor: "#fff"
+          }
+        },
+        //third line
+        {
+          label: "Node Sent",
+          data: d3,
+          lines: {
+            fillColor: "rgba(150, 202, 89, 0.12)"
+          }, //#96CA59 rgba(150, 202, 89, 0.42)
+          points: {
+            fillColor: "#fff"
+          }
+        }
+        ], options);
+
+
+
       });
     </script>
     <!-- /Flot -->
@@ -257,6 +287,7 @@
     <!-- jQuery Sparklines -->
     <script>
       $(document).ready(function() {
+        // alert("daniel2")
         $(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
           type: 'bar',
           height: '125',
@@ -298,7 +329,7 @@
     <!-- bootstrap-daterangepicker -->
     <script>
       $(document).ready(function() {
-        alert("daniel")
+        // alert("daniel")
         var cb = function(start, end, label) {
           console.log(start.toISOString(), end.toISOString(), label);
           $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
