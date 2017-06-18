@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'nodes',
     'gateways',
     'services',
+    'registration',
+
+
 ]
 
 MIDDLEWARE = [
@@ -137,3 +140,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+
+
+### Redirect after user login, default is /accounts/profile/ ###
+LOGIN_REDIRECT_URL  = "/"
+
