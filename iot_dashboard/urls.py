@@ -37,20 +37,25 @@ router.register(r'users', UserViewSet)
 
 
 urlpatterns = [
+    url(r'^$',views.index),
+    url(r'^admin/', admin.site.urls),
+
     # url(r'^login$', auth_views.LoginView.as_view),
     url(r'^accounts/login/$', auth_views.LoginView.as_view()),
     url(r'^accounts/logout/$', auth_views.LogoutView.as_view(template_name="registration/login.html")),
-
     url(r'^accounts/signup/$', views.signup),
-
     url(r'^accounts/profile/$', views.index),  ## for temporary  use
 
-    url(r'^$',views.index),
-    url(r'^api', include(router.urls)),  ###REST Framework
+    ### Password Reset ###
+    url(r'^accounts/passwd_reset/$', auth_views.PasswordResetView.as_view(), name="password_reset"),
+    url(r'^accounts/passwd_reset_done/$', auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),    
+    url(r'^accounts/passwd_reset_confirm/uidb64=(?P<uidb64>\S+)/token=(?P<token>\S+)$', auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
+    url(r'^accounts/passwd_reset_complete/$', auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),    
 
-    url(r'^admin/', admin.site.urls),
+    ###REST Framework
+    url(r'^api', include(router.urls)),  
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),  
 
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),    
     url(r'^nodes/', include('nodes.urls')),
     url(r'^gateways/', include('gateways.urls')),
     url(r'^services/', include('services.urls')),
