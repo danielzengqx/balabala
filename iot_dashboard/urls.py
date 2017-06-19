@@ -41,16 +41,16 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     # url(r'^login$', auth_views.LoginView.as_view),
-    url(r'^accounts/login/$', auth_views.LoginView.as_view()),
+    url(r'^accounts/login/$', auth_views.LoginView.as_view(), name="login"),
     url(r'^accounts/logout/$', auth_views.LogoutView.as_view(template_name="registration/login.html")),
     url(r'^accounts/signup/$', views.signup),
     url(r'^accounts/profile/$', views.index),  ## for temporary  use
 
     ### Password Reset ###
-    url(r'^accounts/passwd_reset/$', auth_views.PasswordResetView.as_view(), name="password_reset"),
-    url(r'^accounts/passwd_reset_done/$', auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),    
-    url(r'^accounts/passwd_reset_confirm/uidb64=(?P<uidb64>\S+)/token=(?P<token>\S+)$', auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
-    url(r'^accounts/passwd_reset_complete/$', auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),    
+    url(r'^accounts/passwd_reset/$', auth_views.PasswordResetView.as_view(template_name="registration/passwd_reset.html"), name="password_reset"),
+    url(r'^accounts/passwd_reset_done/$', auth_views.PasswordResetDoneView.as_view(template_name="registration/passwd_reset_done.html"), name="password_reset_done"),    
+    url(r'^accounts/passwd_reset_confirm/uidb64=(?P<uidb64>\S+)/token=(?P<token>\S+)$', auth_views.PasswordResetConfirmView.as_view(template_name="registration/passwd_reset_confirm.html"), name="password_reset_confirm"),
+    url(r'^accounts/passwd_reset_complete/$', auth_views.PasswordResetCompleteView.as_view(template_name="registration/passwd_reset_complete.html"), name="password_reset_complete"),    
 
     ###REST Framework
     url(r'^api', include(router.urls)),  
