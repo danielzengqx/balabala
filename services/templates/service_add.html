@@ -28,40 +28,41 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form id="service-form" data-parsley-validate class="form-horizontal form-label-left">
+                    <form action="." method="post" id="service-form" data-parsley-validate class="form-horizontal form-label-left">
+					{% csrf_token %}
 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="service-name">Service Name <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="service-name" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="service-name" required="required" name="service_name" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
 					  <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Service ID <span class="required">*</span>
 						</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="service-id" name="service-id" required="required" class="form-control " placeholder="LO470CNDGHS01">
+                          <input type="text" id="service-id" name="service_id" required="required" class="form-control " placeholder="LO470CNDGHS01">
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="max-node" class="control-label col-md-3 col-sm-3 col-xs-12">Max Nodes <span class="required">*
 						</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="max-node" id="max-node" required="required" class="form-control col-md-7 col-xs-12">
+                          <input id="max-node" id="max-node" name="max_nodes" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="url" class="control-label col-md-3 col-sm-3 col-xs-12">Service Url </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="service-url" id="service-url" class="form-control col-md-7 col-xs-12">
+                          <input id="service-url" id="service-url" name="url" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Service Description </span>
                         </label>
 						<div class="col-md-6 col-sm-6 col-xs-24">
-						  <textarea id="service-des" class="form-control" name="service-des" data-parsley-trigger="keyup" 
+						  <textarea id="service-des" class="form-control" name="description" data-parsley-trigger="keyup" 
                             data-parsley-validation-threshold="10"></textarea>
 						  <br/>
                         </div>
