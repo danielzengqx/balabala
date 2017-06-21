@@ -10,9 +10,9 @@ urlpatterns = [
     url(r'^add/$', views.service_add, name='service_add'),
     url(r'^detail/(?P<service_id>\w+)', views.service_detail, name='service_detail'),
     url(r'^modify/(?P<service_id>\w+)', views.service_modify, name='service_modify'),
-]
-    ### REST API ###
-    url(r'^api/$', views.ServiceList.as_view()),
+
+	### REST API ###
+	url(r'^api/$', views.ServiceList.as_view()),
     url(r'^api/(?P<pk>[0-9]+)/$', views.ServiceDetail.as_view()),
 
 
