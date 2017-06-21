@@ -29,7 +29,7 @@
                   </div>
 
 				  <div class="row">
-                    <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="x_panel">
                         <div class="x_title">
                           <h2>Detail Information <small></small></h2>
@@ -56,11 +56,11 @@
                             <tbody>
                               <tr>
                                 <th scope="row">Name</th>
-                                <td>东莞东城区xx街道停车</td>
+                                <td>{{ single_service.service_name }}</td>
                               </tr>
                               <tr>
                                 <th scope="row">Service ID</th>
-                                <td>LO470CNDGHS01</td>
+                                <td>{{ single_service.service_id }}</td>
                               </tr>
                               <tr>
                                 <th scope="row">Current Nodes</th>
@@ -68,7 +68,11 @@
                               </tr>
 							  <tr>
                                 <th scope="row">Max Nodes</th>
-                                <td>2000</td>
+                                <td>{{ single_service.max_nodes }}</td>
+                              </tr>
+							  <tr>
+                                <th scope="row">Description</th>
+                                <td>{{ single_service.description }}</td>
                               </tr>
 							  <tr>
                                 <th scope="row">Create Time</th>
@@ -82,7 +86,7 @@
                     </div>
 
                     
-			        <div class="col-md-8 col-sm-6 col-xs-12">
+			        <div class="col-md-6 col-sm-6 col-xs-12">
                       <div class="x_panel">
                         <div class="x_title">
                           <h2>Bar graph <small>Sessions</small></h2>

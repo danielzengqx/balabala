@@ -68,12 +68,12 @@
                             </td>
                             <td class=" ">{{ forloop.counter }}</td>
                             <td class=" "><a href="/services/detail/{{ service.service_id }}">{{ service.service_id }} </a></td>
-                            <td class=" ">{{ service.service_name }} </td>
+                            <td class=" "><a href="/services/detail/{{ service.service_id }}">{{ service.service_name }} </a></td>
                             <td class=" ">{{ service.max_nodes }}</td>
                             <td class=" ">15</td>
 
                             <td class=" last">
-                            <a href="modify/"><span class="glyphicon glyphicon-pencil  blue" aria-hidden="true"></span></a>
+                            <a href="/services/modify/{{ service.service_id }}"><span class="glyphicon glyphicon-pencil  blue" aria-hidden="true"></span></a>
                             <a href="#"><span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true"></span></a>
                               </td>
                           </tr>
