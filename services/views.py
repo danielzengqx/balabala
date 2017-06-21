@@ -1,6 +1,16 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from .form import ServiceInfoForm
 from .models import Service
+
+### REST API ###
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from .models import Service
+from .serializers import ServiceSerializer
+from rest_framework import generics
+
 # Create your views here.
 def index(request):
     all_services = Service.objects.all
@@ -71,3 +81,18 @@ def service_modify(request, service_id):
         "single_service": single_service
     }
     return render(request, template, context)
+
+
+#### REST API ###
+class ServiceList(generics.ListCreateAPIView):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
+
+
+class ServiceDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
+
+
+
+
