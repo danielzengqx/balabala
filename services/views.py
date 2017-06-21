@@ -14,7 +14,6 @@ def service_add(request):
         #check the post value
         print(request.POST)
         form = ServiceInfoForm(request.POST)
-        print('form is: %s'% form)
         if form.is_valid():
             print('form is valid!')
             servicename = form.cleaned_data['service_name']
