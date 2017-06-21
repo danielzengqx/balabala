@@ -3,11 +3,12 @@ from .form import ServiceInfoForm
 from .models import Service
 # Create your views here.
 def index(request):
-	template = "service_index.html"
-	context = {
-
+    all_services = Service.objects.all
+    template = "service_index.html"
+    context = {
+        "all_services": all_services,
 	}
-	return render(request, template, context)
+    return render(request, template, context)
 
 def service_add(request):
     if request.method == 'POST':

@@ -58,39 +58,27 @@
                         </thead>
 
                         <tbody>
-
+                        	
+                        	<!-- display all of the current services by for loop -->
+                        	{% for service in all_services %}
 
                           <tr class="even pointer">
                             <td class="a-center ">
                               <input type="checkbox" class="flat" name="table_records">
                             </td>
-                            <td class=" ">1</td>
-                            <td class=" "><a href="/services/detail">LO470CNDGHS01 </a></td>
-                            <td class=" ">东莞东城区xx街道停车 <i class="success fa fa-long-arrow-up"></i></td>
-                            <td class=" ">500</td>
+                            <td class=" ">{{ forloop.counter }}</td>
+                            <td class=" "><a href="/services/detail/{{ service.service_id }}">{{ service.service_id }} </a></td>
+                            <td class=" ">{{ service.service_name }} </td>
+                            <td class=" ">{{ service.max_nodes }}</td>
                             <td class=" ">15</td>
 
                             <td class=" last">
-                            <a href="#"><span class="glyphicon glyphicon-pencil  blue" aria-hidden="true"></span></a>
+                            <a href="modify/"><span class="glyphicon glyphicon-pencil  blue" aria-hidden="true"></span></a>
                             <a href="#"><span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true"></span></a>
                               </td>
                           </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
 
-                            <td class=" ">2</td>
-                            <td class=" "><a href="/services/detail">LO470CNSZNL01 </a></td>
-                            <td class=" ">深圳南山区新地环境监测 <i class="success fa fa-long-arrow-up"></i></td>
-                            <td class=" ">1000</td>
-                            <td class=" ">20</td>
-
-                            <td class=" last">
-                            <a href="#"><span class="glyphicon glyphicon-pencil  blue" aria-hidden="true"></span></a>
-                            <a href="#"><span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true"></span></a>
-                              </td>
-                          </tr>
+                          {% endfor %}
 
                         </tbody>
                       </table>
