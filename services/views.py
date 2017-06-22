@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
+from django.core.exceptions import ObjectDoesNotExist
 from .form import ServiceInfoForm
 from .models import Service
 
@@ -66,21 +67,31 @@ def service_modify(request, service_id):
             maxnodes = form.cleaned_data['max_nodes']
             url = form.cleaned_data['url']
             description = form.cleaned_data['description']
-            single_service.service_name = servicename
-            single_service.max_nodes = maxnodes
-            single_service.url = url
-            single_service.description = description
-            single_service.save()
+            Service.objects.filter(service_id=service_id).update(service_name=servicename, max_nodes=maxnodes, url=url, description=description)
             return HttpResponseRedirect('/services/')
         else:
             print("form is not valid!!!")
+
     else:
         form = ServiceInfoForm()
+
     template = "service_modify.html"
     context = {
         "single_service": single_service
     }
     return render(request, template, context)
+
+def service_delete(request, service_id):
+    #check if service id exsit
+    try:
+        Service.objects.get(service_id=service_id)
+        print('Delete the service: %s now!' % service_id)
+        Service.objects.filter(service_id=service_id).delete()
+        #return HttpResponse('ok')
+    except ObjectDoesNotExist:
+        print('Service id %s is not exist, delete service failed!' % service_id)
+    #refresh the index
+    return HttpResponseRedirect('/services/')
 
 
 #### REST API ###
