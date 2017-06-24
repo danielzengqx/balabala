@@ -108,7 +108,7 @@
                           <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                          <canvas id="mybarChart"></canvas>
+                          <canvas id="barChart"></canvas>
                         </div>
                       </div>
 				    </div>
@@ -127,12 +127,22 @@
 {% endblock %}
 
 {% block script %}
+    <!-- jQuery -->
+    <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <!-- FastClick -->
+    <script src="{% static 'vendors/fastclick/lib/fastclick.js' %}"></script>
+    <!-- NProgress -->
+    <script src="{% static 'vendors/nprogress/nprogress.js' %}"></script>
+    <!-- iCheck -->
+    <script src="{% static 'vendors/iCheck/icheck.min.js' %}"></script>
+    <!-- Chart.js -->
+    <script src="{% static 'vendors/Chart.js/dist/Chart.min.js' %}"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="{% static 'build/js/custom.js' %}"></script>
 
     <!-- Scripts for mybarChart -->
-
-    <!-- Chart.js -->
-    <script src="{% static '/vendors/Chart.js/dist/Chart.min.js' %}"></script>
-
     <script>
       Chart.defaults.global.legend = {
         enabled: false
@@ -140,7 +150,7 @@
 
 
       // Bar chart
-      var ctx = document.getElementById("mybarChart");
+      var ctx = document.getElementById("barChart");
       var mybarChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -148,7 +158,7 @@
           datasets: [{
             label: '# of Votes',
             backgroundColor: "#26B99A",
-            data: [88, 30, 40, 28, 92, 50, 45]
+            data: [77, 30, 40, 28, 92, 50, 45]
           }, {
             label: '# of Votes',
             backgroundColor: "#03586A",
@@ -175,20 +185,6 @@
 
     </script>
 
-    <!-- jQuery -->
-    <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
-    <!-- Bootstrap -->
-    <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    <!-- FastClick -->
-    <script src="{% static 'vendors/fastclick/lib/fastclick.js' %}"></script>
-    <!-- NProgress -->
-    <script src="{% static 'vendors/nprogress/nprogress.js' %}"></script>
-    <!-- iCheck -->
-    <script src="{% static 'vendors/iCheck/icheck.min.js' %}"></script>
-    <!-- Chart.js -->
-    <!-- <script src="{% static 'vendors/Chart.js/dist/Chart.min.js' %}"></script> -->
-    <!-- Custom Theme Scripts -->
-    <script src="{% static 'build/js/custom.js' %}"></script>
 
 {% endblock %}
 
