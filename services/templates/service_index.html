@@ -74,7 +74,8 @@
 
                             <td class=" last">
                             <a href="/services/modify/{{ service.service_id }}"><span class="glyphicon glyphicon-pencil  blue" aria-hidden="true"></span></a>
-                            <a href="/services/delete/{{ service.service_id }}"><span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true"></span></a>
+                            <!-- <a href="/services/delete/{{ service.service_id }}"></a> -->
+                            <span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true" id="{{ service.service_id }}" onClick="delete_service(this.id)"></span>
                               </td>
                           </tr>
 
@@ -175,5 +176,44 @@
     <!-- Custom Theme Scripts -->
     <script src="{% static 'build/js/custom.min.js' %}"></script>
 
+<script type="text/javascript">
+
+      $(document).ready(function() {
+        $(".glyphicon-remove-sign").hover(function() {
+            // alert("good");
+          $('html,body').css('cursor','pointer');
+        },function() {
+            // alert("good");
+          $('html,body').css('cursor','auto')
+        });
+
+      });
+
+
+      function delete_service(service_id)
+      {
+      var result = confirm("Want to delete?");
+      if (result) {
+          //Logic to delete the item
+          alert("Will delete it! " +service_id);
+          // /services/delete/{{ service.service_id }}
+
+
+          $.post( "/services/delete/"+service_id, function( data ) {
+              // alert("Delete Finish on " + service_id);
+            // $( ".result" ).html( data );  //insert data from the request to the page if need
+            location.reload();   //Regresh the page
+
+          });
+
+
+      }
+    };
+
+
+
+
+
+</script>
 {% endblock %}
 

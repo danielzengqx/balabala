@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Service(models.Model):
-    service_id = models.CharField(max_length=64, default='LOCNSZDT001')
+    service_id = models.CharField(max_length=64, default='LOCNSZDT001', primary_key=True)
     service_name = models.CharField(max_length=64, default='IoT Service')
 
     max_nodes = models.IntegerField(default=9999)

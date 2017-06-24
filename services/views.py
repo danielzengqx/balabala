@@ -81,6 +81,7 @@ def service_modify(request, service_id):
     }
     return render(request, template, context)
 
+@csrf_exempt
 def service_delete(request, service_id):
     #check if service id exsit
     try:
