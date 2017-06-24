@@ -128,6 +128,40 @@
 
 {% block script %}
 
+    <!-- Scripts for mybarChart -->
+	<script>
+	$(document).ready(function() {
+			  
+			  var ctx = document.getElementById("mybarChart");
+			  var mybarChart = new Chart(ctx, {
+				type: 'bar',
+				data: {
+				  labels: ["January", "February", "March", "April", "May", "June", "July"],
+				  datasets: [{
+					label: '# of Votes',
+					backgroundColor: "#26B99A",
+					data: [88, 30, 40, 28, 92, 50, 45]
+				  }, {
+					label: '# of Votes',
+					backgroundColor: "#03586A",
+					data: [41, 56, 25, 48, 72, 34, 12]
+				  }]
+				},
+
+				options: {
+				  scales: {
+					yAxes: [{
+					  ticks: {
+						beginAtZero: true
+					  }
+					}]
+				  }
+				}
+			  });  
+		}
+	});
+	</script>
+
     <!-- jQuery -->
     <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
     <!-- Bootstrap -->
@@ -141,7 +175,7 @@
     <!-- Chart.js -->
     <script src="{% static 'vendors/Chart.js/dist/Chart.min.js' %}"></script>
     <!-- Custom Theme Scripts -->
-    <script src="{% static 'build/js/custom.min.js' %}"></script>
+    <script src="{% static 'build/js/custom.js' %}"></script>
 
 {% endblock %}
 
