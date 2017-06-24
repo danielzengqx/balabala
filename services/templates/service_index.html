@@ -195,12 +195,7 @@
       var result = confirm("Want to delete?");
       if (result) {
           //Logic to delete the item
-          alert("Will delete it! " +service_id);
-          // /services/delete/{{ service.service_id }}
-
-
           $.post( "/services/delete/"+service_id, function( data ) {
-              // alert("Delete Finish on " + service_id);
             // $( ".result" ).html( data );  //insert data from the request to the page if need
             location.reload();   //Regresh the page
 
