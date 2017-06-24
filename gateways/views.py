@@ -16,7 +16,7 @@ from .serializers import GatewaySerializer, GatewayDataSerializer
 # Create your views here.
 def index(request):
     gateways = Gateway.objects.all()
-    return render_to_response("gateway_index.html", {'gateways': gateways})
+    return render_to_response("gateway_test.html", {'gateways': gateways})
 
 
 def gateway_add(request):
@@ -31,7 +31,7 @@ def gateway_add(request):
     else:
         form = GatewayInfoForm()
 
-    return render_to_response("gateway_index.html", {'form': form})
+    return render_to_response("gateway_test.html", {'form': form})
 
 
 def gateway_detail(request, gateway_id):
@@ -40,7 +40,7 @@ def gateway_detail(request, gateway_id):
     except Gateway.DoesNotExist:
         return HttpResponse("gateway with ID %s doesn't exist!" % (gateway_id))
 
-    return render_to_response("gateway_index.html", {'gateway': gateway})
+    return render_to_response("gateway_test.html", {'gateway': gateway})
 
 
 def gateway_modify(request, gateway_id):
@@ -56,7 +56,7 @@ def gateway_modify(request, gateway_id):
     else:
         form = GatewayInfoForm()
 
-    return render_to_response("gateway_index.html", {'form': form})
+    return render_to_response("gateway_test.html", {'form': form})
 
 
 #@csrf_exempt
