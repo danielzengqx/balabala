@@ -3,7 +3,7 @@ from django.utils import timezone
 
 
 class Gateway(models.Model):
-    gateway_id = models.CharField(max_length=64, default='ffff')
+    gateway_id = models.CharField(max_length=64, default='ffff', unique=True)
     gateway_name = models.CharField(max_length=64, default='no name')
     vendor = models.CharField(max_length=64, default='Huawei')
 

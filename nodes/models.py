@@ -8,7 +8,7 @@ from services.models import Service
 
 
 class Node(models.Model):
-    node_id = models.CharField(max_length=64, default='ffff')
+    node_id = models.CharField(max_length=64, default='ffff', unique=True)
     node_name = models.CharField(max_length=64, default='no name')
 
     DEVICE_TYPE_CHOICES = (
@@ -38,7 +38,7 @@ class Node(models.Model):
 
 
 class LoRaNode(Node):
-    EUI = models.CharField(max_length=64, default='ffff')
+    EUI = models.CharField(max_length=64, default='ffff', unique=True)
     DevAddr = models.GenericIPAddressField(protocol='both', unpack_ipv4=True,  default='127.0.0.1')
     AppKey = models.CharField(max_length=256, default='')
     NwkSKey = models.CharField(max_length=256, default='')
