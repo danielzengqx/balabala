@@ -19,8 +19,8 @@ class Node(models.Model):
     )
     node_type = models.CharField(max_length=64, choices=DEVICE_TYPE_CHOICES, default='sensor',)
 
-    latitude = models.DecimalField(max_digits=4, decimal_places=2, default=0.00,)
-    longitude = models.DecimalField(max_digits=4, decimal_places=2, default=0.00,)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, default=113.957666,)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, default=22.523888,)
 
     register_time = models.DateTimeField(auto_now_add=True)
     Lastalive_time = models.DateTimeField(default=timezone.now)
