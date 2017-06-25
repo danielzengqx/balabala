@@ -4,6 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 from datetime import datetime
+import re
 
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
@@ -89,6 +90,28 @@ def gatewaydata_detail(request, gateway_id, pk_id):
 
     return render_to_response("gateway_test.html", {'data': data})
 
+@csrf_exempt
+def gatewaydata_add(request, gateway_id, data):
+    try:
+        gateway = Gateway.objects.get(gateway_id=gateway_id)
+    except Gateway.DoesNotExist:
+        return HttpResponse("gateway with ID %s doesn't exist!" % (gateway_id))
+
+    re_match = re.search(r'^data1=(?P<data1>\w+)', data)
+    if re_match:
+        gatawaydata = GatewayData(data1=re_match.group('data1'), gateway=gateway)
+        gatawaydata.save()
+
+
+        if gateway.gatewaydata_set.count() > 5:
+            old_data = gateway.gatewaydata_set.order_by('-time')[5:]
+            for data in old_data:
+                data.delete()
+
+        return HttpResponse("Success!\n")
+
+    else:
+        return HttpResponse("POST data failed, format wrong!\n")
 
 #### REST API ###
 class GatewayList(generics.ListCreateAPIView):

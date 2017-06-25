@@ -15,6 +15,7 @@ urlpatterns = [
 
 	url(r'^api/$', views.GatewayList.as_view()),
     url(r'^api/(?P<pk>[0-9]+)/$', views.GatewayDetail.as_view()),
+    url(r'^api/gateway/(?P<gateway_id>[0-9]+)/(?P<data>.*)/$', views.gatewaydata_add, name='gatewaydata_add'),
 ]
 
 
