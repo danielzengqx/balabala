@@ -18,7 +18,7 @@ from .serializers import GatewaySerializer, GatewayDataSerializer
 # Create your views here.
 def index(request):
     gateways = Gateway.objects.all()
-    return render_to_response("gateway_test.html", {'gateways': gateways})
+    return render_to_response("gateway_index.html", {'gateways': gateways})
 
 
 def gateway_add(request):
@@ -46,7 +46,11 @@ def gateway_detail(request, gateway_id):
 
 
 def gateway_modify(request, gateway_id):
-    gateway = Gateway.objects.get(gateway_id=gateway_id)
+    try:
+        gateway = Gateway.objects.get(gateway_id=gateway_id)
+    except Gateway.DoesNotExist:
+        return HttpResponse("gateway with ID %s doesn't exist!" % (gateway_id))
+
     if request.method == 'POST':
         form = GatewayInfoForm(request.POST)
         if form.is_valid():
@@ -83,7 +87,7 @@ def gatewaydata_detail(request, gateway_id, pk_id):
     try:
         data = gateway.gatewaydata_set.get(pk=pk_id)
     except Gateway.DoesNotExist:
-        return HttpResponse("gateway with ID %s hasn't data with time: %s!" % (gateway_id, data_time))
+        return HttpResponse("gateway with ID %s hasn't data with pk: %s!" % (gateway_id, pk_id))
 
     except:
         return HttpResponse("Get data filed!\n")

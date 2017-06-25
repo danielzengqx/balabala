@@ -7,6 +7,8 @@ class NodeAdmin(admin.ModelAdmin):
     list_display = ('node_id', 'node_type', 'register_time')
 class NodeRawDataAdmin(admin.ModelAdmin):
     list_display = ('data', 'node', 'gateway', 'time')
+class NodeServiceDataAdmin(admin.ModelAdmin):
+    list_display = ('info1', 'data1', 'node', 'gateway', 'time')
 
 class GatewayAdmin(admin.ModelAdmin):
     list_display = ('gateway_id', 'gateway_name', 'gateway_type', 'register_time')
@@ -18,6 +20,7 @@ class ServiceAdmin(admin.ModelAdmin):
 
 admin.site.register(LoRaNode, NodeAdmin)
 admin.site.register(NodeRawData, NodeRawDataAdmin)
+admin.site.register(ServiceData, NodeServiceDataAdmin)
 admin.site.register(Gateway, GatewayAdmin)
 admin.site.register(GatewayData, GatewayDataAdmin)
 admin.site.register(Service, ServiceAdmin)

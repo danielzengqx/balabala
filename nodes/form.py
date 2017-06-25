@@ -1,22 +1,22 @@
-from rest_framework import serializers
+from django.forms import ModelForm
 
 from .models import LoRaNode, NodeRawData, ServiceData
 
 
-class LoRaNodeSerializer(serializers.ModelSerializer):
+class LoRaNodeInfoForm(ModelForm):
     class Meta:
         model = LoRaNode
         fields = ('node_id', 'node_name', 'node_type',
-            'Lastalive_time', 'device_status', 'service')
+            'Lastalive_time', 'device_status', 'service', 'EUI', 'DevAddr', 'AppKey', 'NwkSKey', 'AppSKey')
 
 
-class NodeRawDataSerializer(serializers.ModelSerializer):
+class NodeRawDataInfoForm(ModelForm):
     class Meta:
         model = NodeRawData
         fields = ('data', 'node', 'gateway')
 
 
-class ServiceDataSerializer(serializers.ModelSerializer):
+class ServiceDataInfoForm(ModelForm):
     class Meta:
         model = ServiceData
         fields = ('info1', 'data1', 'node', 'gateway')

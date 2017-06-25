@@ -1,0 +1,22 @@
+{% for node in nodes %}
+    <p>{{ node.node_id }}</p>
+    <p>{{ node.node_name }}</p>
+    <p>{{ node.DevAddr }}</p>
+{% endfor%}
+
+<p>{{ loranode.register_time}}</p>
+
+
+<p>{{ loranode.node_name}}</p>
+
+
+<p>{{ form.DevAddr}}</p>
+<p>{{ form.node_name}}</p>
+<p>{{ form.node_id}}</p>
+
+
+
+<p>{{ data.data}}</p>
+<p>{{ data.node}}</p>
+<p>{{ data.gateway}}</p>
+<p>{{ data.time}}</p>

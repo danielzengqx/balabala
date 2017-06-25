@@ -59,7 +59,7 @@ class NodeRawData(models.Model):
 
 
 class ServiceData(models.Model):
-    info1 = models.CharField(max_length=128, default='')
+    info1 = models.CharField(max_length=128, default='info1')
     info2 = models.CharField(max_length=128, default='')
     info3 = models.CharField(max_length=128, default='')
 
