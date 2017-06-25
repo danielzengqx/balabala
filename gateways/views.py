@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
+from datetime import datetime
 
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
@@ -70,6 +71,23 @@ def gateway_delete(request, gateway_id):
         return HttpResponse('Delete gateway %s failed!' % gateway_id)
 
     return HttpResponseRedirect('/gateways/')
+
+
+def gatewaydata_detail(request, gateway_id, pk_id):
+    try:
+        gateway = Gateway.objects.get(gateway_id=gateway_id)
+    except Gateway.DoesNotExist:
+        return HttpResponse("gateway with ID %s doesn't exist!" % (gateway_id))
+
+    try:
+        data = gateway.gatewaydata_set.get(pk=pk_id)
+    except Gateway.DoesNotExist:
+        return HttpResponse("gateway with ID %s hasn't data with time: %s!" % (gateway_id, data_time))
+
+    except:
+        return HttpResponse("Get data filed!\n")
+
+    return render_to_response("gateway_test.html", {'data': data})
 
 
 #### REST API ###
