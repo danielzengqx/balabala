@@ -71,7 +71,7 @@
                   <li><a><i class="fa fa-wifi"></i> Gateways <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="/gateways/">Gateway Information</a></li>
-					  <li><a href="/gateways/">Gateway Management</a></li>
+					            <li><a href="/gateways/">Gateway Management</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Services <span class="fa fa-chevron-down"></span></a>
@@ -86,7 +86,20 @@
                       <li><a href="/nodes/">Node Management</a></li>
                     </ul>
                   </li>
-                  <li><a  href="/api"><i class="fa fa-exchange"></i>REST API</a></li>                
+                  <li><a><i class="fa fa-exchange"></i>REST API<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a>Nodes<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                          <li><a href="/nodes/api/LoraNode">Lora Node</a></li>
+                          <li><a href="/nodes/api/NodeRawData">Node Raw Data</a></li>
+                          <li><a href="/nodes/api/ServiceData">Service Data</a></li>                          
+                        </ul>
+                    </li>
+                      <li><a href="/services/api/">Services</a></li>
+                      <li><a href="/gateways/api/">Gateways</a></li>
+
+                    </ul>
+                  </li>                
 
 
                 </ul>
