@@ -8,3 +8,4 @@ class ServiceInfoForm(forms.Form):
     max_nodes = forms.IntegerField()
     url = forms.URLField(max_length=200,required=False)
     description = forms.CharField(max_length=3000, required=False)
+    rule = forms.CharField(max_length=3000, required=False)

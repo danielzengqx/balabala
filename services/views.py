@@ -67,7 +67,8 @@ def service_modify(request, service_id):
             maxnodes = form.cleaned_data['max_nodes']
             url = form.cleaned_data['url']
             description = form.cleaned_data['description']
-            Service.objects.filter(service_id=service_id).update(service_name=servicename, max_nodes=maxnodes, url=url, description=description)
+            rule = form.cleaned_data['rule']
+            Service.objects.filter(service_id=service_id).update(service_name=servicename, max_nodes=maxnodes, url=url, description=description, rule=rule)
             return HttpResponseRedirect('/services/')
         else:
             print("form is not valid!!!")
