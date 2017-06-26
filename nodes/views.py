@@ -13,7 +13,7 @@ from rest_framework import generics
 
 from .models import LoRaNode, NodeRawData, ServiceData
 from .form import LoRaNodeInfoForm, NodeRawDataInfoForm, ServiceDataInfoForm
-from .serializers import LoRaNodeSerializer, NodeRawDataSerializer, ServiceDataSerializer
+from .serializers import LoraNodeSerializer, NodeRawDataSerializer, ServiceDataSerializer
 from gateways.models import Gateway
 
 
@@ -155,3 +155,36 @@ def map_uri(request):
 	result = r.get(url)
 	content = result.content
 	return HttpResponseRedirect(url)
+
+#### REST API ###
+class LoraNodeList(generics.ListCreateAPIView):
+    queryset = LoRaNode.objects.all()
+    serializer_class = LoraNodeSerializer
+
+
+class LoraNodeDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = LoRaNode.objects.all()
+    serializer_class = LoraNodeSerializer
+
+
+#### RawData
+class NodeRawDataList(generics.ListCreateAPIView):
+    queryset = NodeRawData.objects.all()
+    serializer_class = NodeRawDataSerializer
+
+
+class NodeRawDataDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = NodeRawData.objects.all()
+    serializer_class = NodeRawDataSerializer
+
+
+###Service Data ###
+class ServiceDataList(generics.ListCreateAPIView):
+    queryset = ServiceData.objects.all()
+    serializer_class = ServiceDataSerializer
+
+
+class ServiceDataDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ServiceData.objects.all()
+    serializer_class = ServiceDataSerializer
+

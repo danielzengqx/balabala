@@ -14,6 +14,21 @@ urlpatterns = [
 
     url(r'^api/data/(?P<gateway_id>[0-9]+)/(?P<node_id>[0-9]+)/(?P<data>.*)/$', views.loranodedata_add, name='loranodedata_add'),
     #url(r'^map_uri/$',views.map_uri),
+
+    ### REST API ###
+
+    ## LoraNode ##
+	url(r'^api/LoraNode/$', views.LoraNodeList.as_view()),
+    url(r'^api/LoraNode/(?P<pk>[0-9]+)/$', views.LoraNodeDetail.as_view()),
+
+    ## RawData ##
+	url(r'^api/NodeRawData/$', views.NodeRawDataList.as_view()),
+    url(r'^api/NodeRawData/(?P<pk>[0-9]+)/$', views.NodeRawDataDetail.as_view()),
+
+    ## ServiceData ##
+	url(r'^api/ServiceData/$', views.ServiceDataList.as_view()),
+    url(r'^api/ServiceData/(?P<pk>[0-9]+)/$', views.ServiceDataDetail.as_view()),
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

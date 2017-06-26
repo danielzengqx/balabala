@@ -3,7 +3,7 @@ from rest_framework import serializers
 from .models import LoRaNode, NodeRawData, ServiceData
 
 
-class LoRaNodeSerializer(serializers.ModelSerializer):
+class LoraNodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = LoRaNode
         fields = ('node_id', 'node_name', 'node_type',

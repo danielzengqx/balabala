@@ -8,7 +8,7 @@ from services.models import Service
 
 
 class Node(models.Model):
-    node_id = models.CharField(max_length=64, default='ffff', unique=True)
+    node_id = models.CharField(max_length=64, default='ffff', unique=True, primary_key=True)
     node_name = models.CharField(max_length=64, default='no name')
 
     DEVICE_TYPE_CHOICES = (
@@ -49,6 +49,7 @@ class LoRaNode(Node):
 
 
 class NodeRawData(models.Model):
+    # id = models.CharField(max_length=128, primary_key=True)
     data = models.CharField(max_length=128, default='')
     node = models.ForeignKey('LoRaNode', on_delete=models.SET_NULL, blank=True, null=True,)
     gateway = models.ForeignKey('gateways.Gateway', on_delete=models.SET_NULL, blank=True, null=True,)
@@ -59,6 +60,7 @@ class NodeRawData(models.Model):
 
 
 class ServiceData(models.Model):
+    # id = models.CharField(max_length=128, primary_key=True)    
     info1 = models.CharField(max_length=128, default='info1')
     info2 = models.CharField(max_length=128, default='')
     info3 = models.CharField(max_length=128, default='')
