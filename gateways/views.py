@@ -25,6 +25,9 @@ def gateway_add(request):
     if request.method == 'POST':
         form = GatewayInfoForm(request.POST)
         if form.is_valid():
+            if Gateway.objects.filter(gateway_id=form.gateway_id):
+                return HttpResponse("gateway with ID %s exist!" % (form.gateway_id))
+
             gateway = form.save(commit=False)
             gateway.save()
             return HttpResponseRedirect('/gateways/')
@@ -54,6 +57,9 @@ def gateway_modify(request, gateway_id):
     if request.method == 'POST':
         form = GatewayInfoForm(request.POST)
         if form.is_valid():
+            if Gateway.objects.filter(gateway_id=form.gateway_id):
+                return HttpResponse("gateway with ID %s exist!" % (form.gateway_id))
+
             gateway = form.save(commit=False)
             gateway.save()
             return HttpResponseRedirect('/gateways/')
@@ -94,6 +100,7 @@ def gatewaydata_detail(request, gateway_id, pk_id):
 
     return render_to_response("gateway_test.html", {'data': data})
 
+
 @csrf_exempt
 def gatewaydata_add(request, gateway_id, data):
     try:
@@ -117,6 +124,7 @@ def gatewaydata_add(request, gateway_id, data):
     else:
         return HttpResponse("POST data failed, format wrong!\n")
 
+
 #### REST API ###
 class GatewayList(generics.ListCreateAPIView):
     queryset = Gateway.objects.all()
@@ -126,3 +134,13 @@ class GatewayList(generics.ListCreateAPIView):
 class GatewayDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Gateway.objects.all()
     serializer_class = GatewaySerializer
+
+
+class GatewayDataList(generics.ListCreateAPIView):
+    queryset = GatewayData.objects.all()
+    serializer_class = GatewayDataSerializer
+
+
+class GatewayDataDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = GatewayData.objects.all()
+    serializer_class = GatewayDataSerializer

@@ -3,36 +3,19 @@ from django.utils import timezone
 
 
 class Gateway(models.Model):
-    gateway_id = models.CharField(max_length=64, default='ffff', unique=True)
+    gateway_id = models.CharField(max_length=64, default='ffff', unique=True, primary_key=True)
     gateway_name = models.CharField(max_length=64, default='no name')
     vendor = models.CharField(max_length=64, default='Huawei')
 
     DEVICE_TYPE_CHOICES = (
         ('LoRa', 'LoRa'),
+        ('NB-IOT', 'NB-IOT'),
         ('others', 'others'),
     )
     gateway_type = models.CharField(max_length=64, choices=DEVICE_TYPE_CHOICES, default='LoRa',)
 
-    PROVINCE_TYPE_CHOICES = (
-        ('Guangdong', 'Guangdong'),
-        ('Liaoning', 'Liaoning'),
-    )
-    province = models.CharField(max_length=64, choices=PROVINCE_TYPE_CHOICES, default='Guangdong',)
-
-    CITY_TYPE_CHOICES = {
-        "Guangdong": (
-            ('Guangzhou', 'Guangzhou'),
-            ('Shenzhen', 'Shenzhen'),
-            ('others', 'others'),
-        ),
-
-        "Liaoning": (
-            ('Shenyang', 'Shenyang'),
-            ('Dalian', 'Dalian'),
-            ('others', 'others'),
-        ),
-    }
-    city = models.CharField(max_length=64, choices=CITY_TYPE_CHOICES[province.default], default='Guangzhou',)
+    province = models.CharField(max_length=64, default='Guangdong',)
+    city = models.CharField(max_length=64, default='Guangzhou',)
     address = models.CharField(max_length=64, default='Earth')
 
     latitude = models.DecimalField(max_digits=9, decimal_places=6, default=113.957666,)
@@ -40,8 +23,8 @@ class Gateway(models.Model):
 
     register_time = models.DateTimeField(auto_now_add=True)
     Lastalive_time = models.DateTimeField(default=timezone.now)
-    device_status = models.CharField(max_length=32, choices=(('ENABLED', 'ENABLED'), ('DISABLED', 'DISABLED')), default='ENABLED',)
-
+    device_control = models.CharField(max_length=32, choices=(('ENABLED', 'ENABLED'), ('DISABLED', 'DISABLED')), default='ENABLED',)
+    device_status = models.CharField(max_length=32, choices=(('active', 'active'), ('inactive', 'inactive')), default='active',)
 
     class Meta:
         ordering = ('gateway_id', 'gateway_name', 'gateway_type', 'register_time')

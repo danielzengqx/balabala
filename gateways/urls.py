@@ -10,11 +10,12 @@ urlpatterns = [
     url(r'^detail/(?P<gateway_id>\w+)/$', views.gateway_detail, name='gateway_detail'),
     url(r'^modify/(?P<gateway_id>\w+)/$', views.gateway_modify, name='gateway_modify'),
     url(r'^delete/(?P<gateway_id>\w+)/$', views.gateway_delete, name='gateway_delete'),
-    url(r'^data/(?P<gateway_id>\w+)/(?P<pk_id>\d+)/$', views.gatewaydata_detail, name='gatewaydata_detail'),
+    url(r'^gatewaydata/(?P<gateway_id>\w+)/(?P<pk_id>\w+)$', views.gatewaydata_detail, name='gatewaydata_detail'),
 
 	url(r'^api/$', views.GatewayList.as_view()),
     url(r'^api/(?P<pk>[0-9]+)/$', views.GatewayDetail.as_view()),
-    url(r'^api/data/(?P<gateway_id>[0-9]+)/(?P<data>.*)/$', views.gatewaydata_add, name='gatewaydata_add'),
+    url(r'^api/data/$', views.GatewayDataList.as_view()),
+    url(r'^api/data/(?P<pk>[0-9]+)/$', views.GatewayDataDetail.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

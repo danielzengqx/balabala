@@ -7,7 +7,7 @@ class GatewayInfoForm(ModelForm):
     class Meta:
         model = Gateway
         fields = ('gateway_id', 'gateway_name', 'vendor', 'gateway_type',
-            'province', 'city', 'address', 'Lastalive_time', 'device_status')
+            'province', 'city', 'address', 'Lastalive_time', 'device_status', 'device_control')
 
 
 class GatewayDataInfoForm(ModelForm):
