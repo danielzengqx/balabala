@@ -18,8 +18,8 @@ from gateways.models import Gateway
 
 
 def index(request):
-    nodes = LoRaNode.objects.order_by('node_id')
-    return render_to_response("node_index.html", {'nodes': nodes})
+    all_nodes = LoRaNode.objects.order_by('node_id')
+    return render_to_response("node_index.html", {'all_nodes': all_nodes})
 
 
 def loranode_add(request):

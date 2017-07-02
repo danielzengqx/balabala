@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+        <!-- page content -->
+        <div class="right_col" role="main">
+		
+          <!-- content -->
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+              <div class="x_title">
+                <h2>Add Node</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>				
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br />
+                    <form action="." method="post" id="node-form" data-parsley-validate class="form-horizontal form-label-left">
+					{% csrf_token %}
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="node-name">Node Name <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="node-name" required="required" name="node_name" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+					  <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Node ID <span class="required">*</span>
+						</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="node-id" name="node_id" required="required" class="form-control " placeholder="FF0001">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="max-node" class="control-label col-md-3 col-sm-3 col-xs-12"> <span class="required">*
+						</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="number" id="max-node" name="max_nodes" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="service-url" class="control-label col-md-3 col-sm-3 col-xs-12">Service Url </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="service-url" name="url" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Service Description </span>
+                        </label>
+						<div class="col-md-6 col-sm-6 col-xs-24">
+						  <textarea id="service-des" class="form-control" name="description" data-parsley-trigger="keyup" 
+                            data-parsley-validation-threshold="10"></textarea>
+                        </div>
+					  </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Service Rule </span>
+                        </label>
+						<div class="col-md-6 col-sm-6 col-xs-24">
+						  <textarea id="service-rule" class="form-control" name="rule" data-parsley-trigger="keyup" 
+                            data-parsley-validation-threshold="10"></textarea>
+						  <br/>
+                        </div>
+					  </div>
+
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <a href="/services/"><button class="btn btn-primary" type="button">Cancel</button></a>
+						  <button class="btn btn-primary" type="reset">Reset</button>
+                          <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        <!-- /page content -->
+
+
+{% endblock %}
+
+{% block script %}
+
+    <!-- jQuery -->
+    <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <!-- FastClick -->
+    <script src="{% static 'vendors/fastclick/lib/fastclick.js' %}"></script>
+    <!-- NProgress -->
+    <script src="{% static 'vendors/nprogress/nprogress.js' %}"></script>
+    <!-- iCheck -->
+    <script src="{% static 'vendors/iCheck/icheck.min.js' %}"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{% static 'build/js/custom.min.js' %}"></script>
+
+{% endblock %}
