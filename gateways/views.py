@@ -25,14 +25,14 @@ def gateway_add(request):
     if request.method == 'POST':
         form = GatewayInfoForm(request.POST)
         if form.is_valid():
-            if Gateway.objects.filter(gateway_id=form.gateway_id):
-                return HttpResponse("gateway with ID %s exist!" % (form.gateway_id))
+            if Gateway.objects.filter(gateway_id=form.cleaned_data['gateway_id']):
+                return HttpResponse("gateway with ID %s exist!" % (form.cleaned_data['gateway_id']))
 
             gateway = form.save(commit=False)
             gateway.save()
             return HttpResponseRedirect('/gateways/')
         else:
-            return HttpResponse('form wrong!')
+            return HttpResponse("form is not valid!!!")
     else:
         form = GatewayInfoForm()
 
@@ -57,9 +57,6 @@ def gateway_modify(request, gateway_id):
     if request.method == 'POST':
         form = GatewayInfoForm(request.POST)
         if form.is_valid():
-            if Gateway.objects.filter(gateway_id=form.gateway_id):
-                return HttpResponse("gateway with ID %s exist!" % (form.gateway_id))
-
             gateway = form.save(commit=False)
             gateway.save()
             return HttpResponseRedirect('/gateways/')
@@ -82,6 +79,21 @@ def gateway_delete(request, gateway_id):
         return HttpResponse('Delete gateway %s failed!' % gateway_id)
 
     return HttpResponseRedirect('/gateways/')
+
+
+def gatewaydata_list(request, gateway_id):
+    try:
+        gateway = Gateway.objects.get(gateway_id=gateway_id)
+    except Gateway.DoesNotExist:
+        return HttpResponse("gateway with ID %s doesn't exist!" % (gateway_id))
+
+    try:
+        datas = gateway.gatewaydata_set.all()
+
+    except:
+        return HttpResponse("Get data filed!\n")
+
+    return render_to_response("gateway_test.html", {'datas': datas})
 
 
 def gatewaydata_detail(request, gateway_id, pk_id):

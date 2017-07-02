@@ -24,8 +24,9 @@ class Node(models.Model):
 
     register_time = models.DateTimeField(auto_now_add=True)
     Lastalive_time = models.DateTimeField(default=timezone.now)
-    device_status = models.CharField(max_length=32, choices=(('ENABLED', 'ENABLED'), ('DISABLED', 'DISABLED')), default='ENABLED',)
-
+    device_control = models.CharField(max_length=32, choices=(('ENABLED', 'ENABLED'), ('DISABLED', 'DISABLED')), default='ENABLED',)
+    device_status = models.CharField(max_length=32, choices=(('active', 'active'), ('inactive', 'inactive')), default='active',)
+    max_data_record = models.BigIntegerField(default=100000000,)
     service = models.ForeignKey('services.Service')
     #datas = ListField(max_length=100, default=[])
 
@@ -38,7 +39,7 @@ class Node(models.Model):
 
 
 class LoRaNode(Node):
-    EUI = models.CharField(max_length=64, default='ffff', unique=True)
+    EUI = models.CharField(max_length=64, default='eeee', unique=True)
     DevAddr = models.GenericIPAddressField(protocol='both', unpack_ipv4=True,  default='127.0.0.1')
     AppKey = models.CharField(max_length=256, default='')
     NwkSKey = models.CharField(max_length=256, default='')
@@ -60,7 +61,7 @@ class NodeRawData(models.Model):
 
 
 class ServiceData(models.Model):
-    # id = models.CharField(max_length=128, primary_key=True)    
+    # id = models.CharField(max_length=128, primary_key=True)
     info1 = models.CharField(max_length=128, default='info1')
     info2 = models.CharField(max_length=128, default='')
     info3 = models.CharField(max_length=128, default='')

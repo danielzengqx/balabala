@@ -7,7 +7,8 @@ class LoRaNodeInfoForm(ModelForm):
     class Meta:
         model = LoRaNode
         fields = ('node_id', 'node_name', 'node_type',
-            'Lastalive_time', 'device_status', 'service', 'EUI', 'DevAddr', 'AppKey', 'NwkSKey', 'AppSKey')
+            'Lastalive_time', 'device_status', 'device_control', 'max_data_record',
+            'service', 'EUI', 'DevAddr', 'AppKey', 'NwkSKey', 'AppSKey')
 
 
 class NodeRawDataInfoForm(ModelForm):

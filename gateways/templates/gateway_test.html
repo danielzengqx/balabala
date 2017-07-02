@@ -11,3 +11,10 @@
 <p>{{ data.battery}}</p>
 <p>{{ data.data1}}</p>
 <p>{{ data.gateway}}</p>
+
+{% for data in datas %}
+    <p>{{ data.time }}</p>
+    <p>{{ data.data1 }}</p>
+    <p>{{ data.gateway }}</p>
+    <p>{{ data.battery }}</p>
+{% endfor%}

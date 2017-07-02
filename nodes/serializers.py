@@ -6,8 +6,9 @@ from .models import LoRaNode, NodeRawData, ServiceData
 class LoraNodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = LoRaNode
-        fields = ('node_id', 'node_name', 'node_type',
-            'Lastalive_time', 'device_status', 'service')
+        fields = ('node_id', 'node_name', 'node_type', 'latitude', 'longitude',
+            'Lastalive_time', 'device_status', 'device_control', 'max_data_record', 'service',
+            'EUI', 'DevAddr', 'AppKey', 'NwkSKey', 'AppSKey')
 
 
 class NodeRawDataSerializer(serializers.ModelSerializer):

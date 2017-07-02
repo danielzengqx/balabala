@@ -5,9 +5,20 @@
 {% endfor%}
 
 <p>{{ loranode.register_time}}</p>
-
-
+<p>{{ loranode.node_id}}</p>
 <p>{{ loranode.node_name}}</p>
+<p>{{ loranode.Lastalive_time}}</p>
+<p>{{ loranode.device_status}}</p>
+<p>{{ loranode.service}}</p>
+
+
+
+{% for data in datas %}
+    <p>{{ data.data }}</p>
+    <p>{{ data.node }}</p>
+    <p>{{ data.gateway }}</p>
+    <p>{{ data.time }}</p>
+{% endfor%}
 
 
 <p>{{ form.DevAddr}}</p>

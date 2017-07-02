@@ -25,7 +25,7 @@ SECRET_KEY = 'a&oc=-8j!7(5ok6%qzxg%i($m-x4pr0k%(5-4m=apnh7jddh+)u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["www.xiaoxiezi.net", "120.24.157.22", "127.0.0.1"]
+ALLOWED_HOSTS = ["www.xiaoxiezi.net", "120.24.157.22", "127.0.0.1", '192.168.50.131']
 
 
 # Application definition

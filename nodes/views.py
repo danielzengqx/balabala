@@ -26,11 +26,14 @@ def loranode_add(request):
     if request.method == 'POST':
         form = LoRaNodeInfoForm(request.POST)
         if form.is_valid():
+            if LoRaNode.objects.filter(node_id=form.cleaned_data['node_id']):
+                return HttpResponse("node with ID %s exist!" % (form.cleaned_data['node_id']))
+
             loranode = form.save(commit=False)
             loranode.save()
             return HttpResponseRedirect('/nodes/')
         else:
-            return HttpResponse('form wrong!')
+            return HttpResponse("form is not valid!!!")
     else:
         form = LoRaNodeInfoForm()
 
@@ -78,6 +81,20 @@ def loranode_delete(request, node_id):
 
     return HttpResponseRedirect('/nodes/')
 
+def rawdata_list(request, node_id):
+    try:
+        loranode = LoRaNode.objects.get(node_id=node_id)
+    except LoRaNode.DoesNotExist:
+        return HttpResponse("loranode with ID %s doesn't exist!" % (node_id))
+
+    try:
+        datas = loranode.noderawdata_set.all()
+
+    except:
+        return HttpResponse("Get data filed!\n")
+
+    return render_to_response("node_test.html", {'datas': datas})
+
 
 def rawdata_detail(request, node_id, pk_id):
     try:
@@ -94,6 +111,20 @@ def rawdata_detail(request, node_id, pk_id):
         return HttpResponse("Get data filed!\n")
 
     return render_to_response("node_test.html", {'data': data})
+
+def servicedata_list(request, node_id):
+    try:
+        loranode = LoRaNode.objects.get(node_id=node_id)
+    except LoRaNode.DoesNotExist:
+        return HttpResponse("loranode with ID %s doesn't exist!" % (node_id))
+
+    try:
+        datas = loranode.servicedata_set.all()
+
+    except:
+        return HttpResponse("Get data filed!\n")
+
+    return render_to_response("node_test.html", {'datas': datas})
 
 
 def servicedata_detail(request, node_id, pk_id):
@@ -187,4 +218,3 @@ class ServiceDataList(generics.ListCreateAPIView):
 class ServiceDataDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ServiceData.objects.all()
     serializer_class = ServiceDataSerializer
-

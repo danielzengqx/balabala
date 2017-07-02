@@ -25,6 +25,7 @@ class Gateway(models.Model):
     Lastalive_time = models.DateTimeField(default=timezone.now)
     device_control = models.CharField(max_length=32, choices=(('ENABLED', 'ENABLED'), ('DISABLED', 'DISABLED')), default='ENABLED',)
     device_status = models.CharField(max_length=32, choices=(('active', 'active'), ('inactive', 'inactive')), default='active',)
+    max_data_record = models.BigIntegerField(default=100000000,)
 
     class Meta:
         ordering = ('gateway_id', 'gateway_name', 'gateway_type', 'register_time')

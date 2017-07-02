@@ -14,12 +14,13 @@ from rest_framework import generics
 
 # Create your views here.
 def index(request):
-    all_services = Service.objects.all
+    all_services = Service.objects.all()
     template = "service_index.html"
     context = {
         "all_services": all_services,
 	}
     return render(request, template, context)
+
 
 def service_add(request):
     if request.method == 'POST':
@@ -27,6 +28,9 @@ def service_add(request):
         print(request.POST)
         form = ServiceInfoForm(request.POST)
         if form.is_valid():
+            if Service.objects.filter(service_id=form.cleaned_data['service_id']):
+                return HttpResponse("service with ID %s exist!" % (form.cleaned_data['service_id']))
+
             print('form is valid!')
             servicename = form.cleaned_data['service_name']
             serviceid = form.cleaned_data['service_id']
@@ -37,26 +41,35 @@ def service_add(request):
             service.save()
             return HttpResponseRedirect('/services/')
         else:
-            print("form is not valid!!!")
+            return HttpResponse("form is not valid!!!")
     else:
         form = ServiceInfoForm()
     template = "service_add.html"
     context = {
-
     }
     return render(request, template, context)
 
+
 def service_detail(request, service_id):
-    single_service = Service.objects.get(service_id=service_id)
-    print('single_service: % s' % single_service)
+    try:
+        single_service = Service.objects.get(service_id=service_id)
+        print('single_service: % s' % single_service)
+    except Service.DoesNotExist:
+        return HttpResponse("Service with ID %s doesn't exist!" % (service_id))
+
     template = "service_detail.html"
     context = {
         "single_service":single_service
     }
     return render(request, template, context)
 
+
 def service_modify(request, service_id):
-    single_service = Service.objects.get(service_id=service_id)
+    try:
+        single_service = Service.objects.get(service_id=service_id)
+    except Service.DoesNotExist:
+        return HttpResponse("service with ID %s doesn't exist!" % (service_id))
+
     if request.method == 'POST':
         #check the post value
         print(request.POST)
@@ -71,7 +84,7 @@ def service_modify(request, service_id):
             Service.objects.filter(service_id=service_id).update(service_name=servicename, max_nodes=maxnodes, url=url, description=description, rule=rule)
             return HttpResponseRedirect('/services/')
         else:
-            print("form is not valid!!!")
+            return HttpResponse("form is not valid!!!")
 
     else:
         form = ServiceInfoForm()
@@ -82,17 +95,18 @@ def service_modify(request, service_id):
     }
     return render(request, template, context)
 
+
 @csrf_exempt
 def service_delete(request, service_id):
-    #check if service id exsit
     try:
-        Service.objects.get(service_id=service_id)
         print('Delete the service: %s now!' % service_id)
-        Service.objects.filter(service_id=service_id).delete()
-        #return HttpResponse('ok')
-    except ObjectDoesNotExist:
-        print('Service id %s is not exist, delete service failed!' % service_id)
-    #refresh the index
+        service = Service.objects.get(service_id=service_id)
+        service.delete()
+    except Service.DoesNotExist:
+        return HttpResponse("Service with ID %s doesn't exist!" % (service_id))
+    except:
+        return HttpResponse('Delete service %s failed!' % service_id)
+
     return HttpResponseRedirect('/services/')
 
 
@@ -105,7 +119,3 @@ class ServiceList(generics.ListCreateAPIView):
 class ServiceDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
-
-
-
-
