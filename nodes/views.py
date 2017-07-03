@@ -37,7 +37,7 @@ def loranode_add(request):
     else:
         form = LoRaNodeInfoForm()
 
-    return render_to_response("node_test.html", {'form': form})
+    return render_to_response("node_add.html", {'form': form})
 
 
 def loranode_detail(request, node_id):

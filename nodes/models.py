@@ -40,7 +40,7 @@ class Node(models.Model):
 
 class LoRaNode(Node):
     EUI = models.CharField(max_length=64, default='eeee', unique=True)
-    DevAddr = models.GenericIPAddressField(protocol='both', unpack_ipv4=True,  default='127.0.0.1')
+    DevAddr = models.CharField(max_length=64, default='ffff', unique=True)
     AppKey = models.CharField(max_length=256, default='')
     NwkSKey = models.CharField(max_length=256, default='')
     AppSKey = models.CharField(max_length=254, default='')

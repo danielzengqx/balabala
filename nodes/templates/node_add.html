@@ -32,6 +32,18 @@
 					{% csrf_token %}
 
                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="service-id">Service ID <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select id="heard" class="form-control" required>
+                            <option value="">Please select a service..</option>
+                            <option value="press">Press</option>
+                            <option value="net">Internet</option>
+                            <option value="mouth">Word of mouth</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="node-name">Node Name <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -46,39 +58,77 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="max-node" class="control-label col-md-3 col-sm-3 col-xs-12"> <span class="required">*
+                        <label for="node-type" class="control-label col-md-3 col-sm-3 col-xs-12">Node Type <span class="required">*
 						</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="max-node" name="max_nodes" required="required" class="form-control col-md-7 col-xs-12">
+                          <select id="heard" class="form-control" required>
+                            <option value="sensor">Sensor</option>
+                            <option value="switch">Switch</option>
+                            <option value="buzzer">Buzzer</option>
+                            <option value="others">Others</option>
+                          </select>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="service-url" class="control-label col-md-3 col-sm-3 col-xs-12">Service Url </label>
+                        <label for="node-latitude" class="control-label col-md-3 col-sm-3 col-xs-12">Latitude </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="service-url" name="url" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="node-latitude" name="latitude" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Service Description </span>
-                        </label>
-						<div class="col-md-6 col-sm-6 col-xs-24">
-						  <textarea id="service-des" class="form-control" name="description" data-parsley-trigger="keyup" 
-                            data-parsley-validation-threshold="10"></textarea>
+                        <label for="node-longitude" class="control-label col-md-3 col-sm-3 col-xs-12">Longitude </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="node-longitude" name="longitude" class="form-control col-md-7 col-xs-12">
                         </div>
-					  </div>
+                      </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Service Rule </span>
-                        </label>
-						<div class="col-md-6 col-sm-6 col-xs-24">
-						  <textarea id="service-rule" class="form-control" name="rule" data-parsley-trigger="keyup" 
-                            data-parsley-validation-threshold="10"></textarea>
-						  <br/>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Node Control</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div id="device-control" class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input type="radio" name="device_control" value="ENABLED"> &nbsp; ENABLED &nbsp;
+                            </label>
+                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input type="radio" name="device_control" value="DISABLED"> DISABLED
+                            </label>
+                          </div>
                         </div>
-					  </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="max-data" class="control-label col-md-3 col-sm-3 col-xs-12">Max Data Record 
+						</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="number" id="max-data" name="max_data_record" class="form-control col-md-7 col-xs-12" placeholder="100000000">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="node-eui" class="control-label col-md-3 col-sm-3 col-xs-12">EUI </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="node-eui" name="EUI" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="node-devaddr" class="control-label col-md-3 col-sm-3 col-xs-12">Device Address </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="node-devaddr" name="DevAddr" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="node-NwkSKey" class="control-label col-md-3 col-sm-3 col-xs-12">Nework Session Key </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="node-NwkSKey" name="NwkSKey" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="node-AppSKey" class="control-label col-md-3 col-sm-3 col-xs-12">Application Session Key </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="node-AppSKey" name="AppSKey" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
 
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <a href="/services/"><button class="btn btn-primary" type="button">Cancel</button></a>
+                          <a href="/nodes/"><button class="btn btn-primary" type="button">Cancel</button></a>
 						  <button class="btn btn-primary" type="reset">Reset</button>
                           <button type="submit" class="btn btn-success">Submit</button>
                         </div>
