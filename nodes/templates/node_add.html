@@ -37,9 +37,9 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select id="heard" class="form-control" required>
                             <option value="">Please select a service..</option>
-                            <option value="press">Press</option>
-                            <option value="net">Internet</option>
-                            <option value="mouth">Word of mouth</option>
+							{% for service in all_services %}
+                            <option value="{{ service.service_id }}">{{ service.service_id }}</option>
+							{% endfor %}
                           </select>
                         </div>
                       </div>

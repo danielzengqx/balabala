@@ -15,6 +15,7 @@ from .models import LoRaNode, NodeRawData, ServiceData
 from .form import LoRaNodeInfoForm, NodeRawDataInfoForm, ServiceDataInfoForm
 from .serializers import LoraNodeSerializer, NodeRawDataSerializer, ServiceDataSerializer
 from gateways.models import Gateway
+from services.models import Service
 
 
 def index(request):
@@ -36,8 +37,13 @@ def loranode_add(request):
             return HttpResponse("form is not valid!!!")
     else:
         form = LoRaNodeInfoForm()
+    all_services = Service.objects.all()
+    template = "node_add.html"
+    context = {
+        "all_services": all_services,
+    }
 
-    return render_to_response("node_add.html", {'form': form})
+    return render(request, template, context)
 
 
 def loranode_detail(request, node_id):
