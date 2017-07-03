@@ -21,6 +21,23 @@
 {% endfor%}
 
 
+
+{% for data in rawdatas %}
+    <p>{{ data.data }}</p>
+    <p>{{ data.node }}</p>
+    <p>{{ data.gateway }}</p>
+    <p>{{ data.time }}</p>
+{% endfor%}
+
+
+{% for data in servicedatas %}
+    <p>{{ data.info1 }}</p>
+    <p>{{ data.data1 }}</p>
+    <p>{{ data.node }}</p>
+    <p>{{ data.gateway }}</p>
+    <p>{{ data.time }}</p>
+{% endfor%}
+
 <p>{{ form.DevAddr}}</p>
 <p>{{ form.node_name}}</p>
 <p>{{ form.node_id}}</p>

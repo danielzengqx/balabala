@@ -52,7 +52,18 @@ def loranode_detail(request, node_id):
     except LoRaNode.DoesNotExist:
         return HttpResponse("loranode with ID %s doesn't exist!" % (node_id))
 
-    return render_to_response("node_test.html", {'loranode': loranode})
+    try:
+        rawdatas = loranode.noderawdata_set.all().order_by('-time')
+    except:
+        return HttpResponse("Get rawdata filed!\n")
+
+    try:
+        servicedatas = loranode.servicedata_set.all().order_by('-time')
+    except:
+        return HttpResponse("Get data filed!\n")
+
+    loranodedata_update(node_id)
+    return render_to_response("node_test.html", {'loranode': loranode, 'rawdatas': rawdatas, 'servicedatas': servicedatas})
 
 
 def loranode_modify(request, node_id):
@@ -150,40 +161,35 @@ def servicedata_detail(request, node_id, pk_id):
     return render_to_response("node_test.html", {'data': data})
 
 
-@csrf_exempt
-def loranodedata_add(request, gateway_id, node_id, data):
-    try:
-        gateway = Gateway.objects.get(gateway_id=gateway_id)
-    except Gateway.DoesNotExist:
-        return HttpResponse("gateway with ID %s doesn't exist!" % (gateway_id))
-
+def loranodedata_update(node_id):
     try:
         loranode = LoRaNode.objects.get(node_id=node_id)
     except LoRaNode.DoesNotExist:
-        return HttpResponse("loranode with ID %s doesn't exist!" % (node_id))
+        print("loranode with ID %s doesn't exist!\n" % (node_id))
+        return 0
 
-    re_match = re.search(r'^data=(?P<data>\w+)', data)
-    if re_match:
+        '''
         rawdata = NodeRawData(data=re_match.group('data'), node=loranode, gateway=gateway)
         rawdata.save()
 
         servicedata = ServiceData(data1=rawdata.data, node=loranode, gateway=gateway)
-        servicedata.save()
+        servicedata.save()'''
 
-        if loranode.noderawdata_set.count() > 5:
-            old_data = loranode.noderawdata_set.order_by('-time')[5:]
-            for data in old_data:
-                data.delete()
+    old_data = loranode.noderawdata_set.order_by('-time')[loranode.max_data_record:]
+    for data in old_data:
+        try:
+            data.delete()
+        except:
+            print("delete date fail!\n")
 
-        if loranode.servicedata_set.count() > 5:
-            old_data = loranode.servicedata_set.order_by('-time')[5:]
-            for data in old_data:
-                data.delete()
-
-        return HttpResponse("Success!\n")
-
-    else:
-        return HttpResponse("POST data failed, format wrong!\n")
+    old_data = loranode.servicedata_set.order_by('-time')[loranode.max_data_record:]
+    for data in old_data:
+        try:
+            data.delete()
+        except:
+            print("delete date fail!\n")
+            
+    return 1
 
 
 def map_uri(request):
@@ -193,7 +199,8 @@ def map_uri(request):
 	content = result.content
 	return HttpResponseRedirect(url)
 
-#### REST API ###
+
+####REST API
 class LoraNodeList(generics.ListCreateAPIView):
     queryset = LoRaNode.objects.all()
     serializer_class = LoraNodeSerializer
@@ -204,7 +211,7 @@ class LoraNodeDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = LoraNodeSerializer
 
 
-#### RawData
+####RawData
 class NodeRawDataList(generics.ListCreateAPIView):
     queryset = NodeRawData.objects.all()
     serializer_class = NodeRawDataSerializer
@@ -215,7 +222,7 @@ class NodeRawDataDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = NodeRawDataSerializer
 
 
-###Service Data ###
+###Service Data
 class ServiceDataList(generics.ListCreateAPIView):
     queryset = ServiceData.objects.all()
     serializer_class = ServiceDataSerializer

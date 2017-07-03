@@ -45,7 +45,13 @@ def gateway_detail(request, gateway_id):
     except Gateway.DoesNotExist:
         return HttpResponse("gateway with ID %s doesn't exist!" % (gateway_id))
 
-    return render_to_response("gateway_test.html", {'gateway': gateway})
+    try:
+        gateway_datas = gateway.gatewaydata_set.all().order_by('-time')
+    except:
+        return HttpResponse("Get data filed!\n")
+
+    gatewaydata_update(gateway_id)
+    return render_to_response("gateway_test.html", {'gateway': gateway, 'gateway_datas': gateway_datas})
 
 
 def gateway_modify(request, gateway_id):
@@ -113,28 +119,21 @@ def gatewaydata_detail(request, gateway_id, pk_id):
     return render_to_response("gateway_test.html", {'data': data})
 
 
-@csrf_exempt
-def gatewaydata_add(request, gateway_id, data):
+def gatewaydata_update(gateway_id):
     try:
         gateway = Gateway.objects.get(gateway_id=gateway_id)
     except Gateway.DoesNotExist:
-        return HttpResponse("gateway with ID %s doesn't exist!" % (gateway_id))
+        print("gateway with ID %s doesn't exist!\n" % (gateway_id))
+        return 0
 
-    re_match = re.search(r'^data1=(?P<data1>\w+)', data)
-    if re_match:
-        gatawaydata = GatewayData(data1=re_match.group('data1'), gateway=gateway)
-        gatawaydata.save()
+    old_data = gateway.gatewaydata_set.order_by('-time')[gateway.max_data_record:]
+    for data in old_data:
+        try:
+            data.delete()
+        except:
+            print("delete date fail!\n")
 
-
-        if gateway.gatewaydata_set.count() > 5:
-            old_data = gateway.gatewaydata_set.order_by('-time')[5:]
-            for data in old_data:
-                data.delete()
-
-        return HttpResponse("Success!\n")
-
-    else:
-        return HttpResponse("POST data failed, format wrong!\n")
+    return 1
 
 
 #### REST API ###
