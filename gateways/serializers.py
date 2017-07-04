@@ -7,7 +7,7 @@ class GatewaySerializer(serializers.ModelSerializer):
         model = Gateway
         fields = ('gateway_id', 'gateway_name', 'vendor', 'gateway_type',
             'province', 'city', 'address', 'register_time',
-            'Lastalive_time', 'device_status', 'device_control', 'max_data_record')
+            'Lastalive_time', 'device_status', 'device_control', 'max_data_record', 'heartbeat_interval')
 
 
 class GatewayDataSerializer(serializers.ModelSerializer):

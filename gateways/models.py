@@ -26,6 +26,7 @@ class Gateway(models.Model):
     device_control = models.CharField(max_length=32, choices=(('ENABLED', 'ENABLED'), ('DISABLED', 'DISABLED')), default='ENABLED',)
     device_status = models.CharField(max_length=32, choices=(('active', 'active'), ('inactive', 'inactive')), default='active',)
     max_data_record = models.BigIntegerField(default=100000000,)
+    heartbeat_interval = models.IntegerField(default=60 * 1,)
 
     class Meta:
         ordering = ('gateway_id', 'gateway_name', 'gateway_type', 'register_time')

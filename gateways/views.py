@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
+from django.utils.timezone import localtime
 from datetime import datetime
 import re
 
@@ -18,6 +19,23 @@ from .serializers import GatewaySerializer, GatewayDataSerializer
 # Create your views here.
 def index(request):
     gateways = Gateway.objects.all()
+    for gateway in gateways:
+        try:
+            gateway_datas = gateway.gatewaydata_set.all().order_by('-time')
+        except:
+            return HttpResponse("Get data filed!\n")
+
+        if gateway_datas:
+            if (datetime.now() - localtime(gateway_datas[0].time).replace(tzinfo=None)).seconds > gateway.heartbeat_interval:
+                gateway.device_status = 'inactive'
+            else:
+                gateway.device_status = 'active'
+        else:
+            if (datetime.now() - localtime(gateway.register_time).replace(tzinfo=None)).seconds > gateway.heartbeat_interval:
+                gateway.device_status = 'inactive'
+            else:
+                gateway.device_status = 'active'
+        gateway.save()
     return render_to_response("gateway_index.html", {'gateways': gateways})
 
 
@@ -50,6 +68,17 @@ def gateway_detail(request, gateway_id):
     except:
         return HttpResponse("Get data filed!\n")
 
+    if gateway_datas:
+        if (datetime.now() - localtime(gateway_datas[0].time).replace(tzinfo=None)).seconds > gateway.heartbeat_interval:
+            gateway.device_status = 'inactive'
+        else:
+            gateway.device_status = 'active'
+    else:
+        if (datetime.now() - localtime(gateway.register_time).replace(tzinfo=None)).seconds > gateway.heartbeat_interval:
+            gateway.device_status = 'inactive'
+        else:
+            gateway.device_status = 'active'
+    gateway.save()
     gatewaydata_update(gateway_id)
     return render_to_response("gateway_detail.html", {'gateway': gateway, 'gateway_datas': gateway_datas})
 

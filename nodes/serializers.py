@@ -7,7 +7,7 @@ class LoraNodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = LoRaNode
         fields = ('node_id', 'node_name', 'node_type', 'latitude', 'longitude',
-            'Lastalive_time', 'device_status', 'device_control', 'max_data_record', 'service',
+            'Lastalive_time', 'device_status', 'device_control', 'max_data_record', 'heartbeat_interval', 'service',
             'EUI', 'DevAddr', 'AppKey', 'NwkSKey', 'AppSKey')
 
 

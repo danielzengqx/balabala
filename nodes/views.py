@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
+from django.utils.timezone import localtime
 from datetime import datetime
 import re
 import requests
@@ -20,6 +21,23 @@ from services.models import Service
 
 def index(request):
     all_nodes = LoRaNode.objects.order_by('node_id')
+    for loranode in all_nodes:
+        try:
+            rawdatas = loranode.noderawdata_set.all().order_by('-time')
+        except:
+            return HttpResponse("Get rawdata filed!\n")
+
+        if rawdatas:
+            if (datetime.now() - localtime(rawdatas[0].time).replace(tzinfo=None)).seconds > loranode.heartbeat_interval:
+                loranode.device_status = 'inactive'
+            else:
+                loranode.device_status = 'active'
+        else:
+            if (datetime.now() - localtime(loranode.register_time).replace(tzinfo=None)).seconds > loranode.heartbeat_interval:
+                loranode.device_status = 'inactive'
+            else:
+                loranode.device_status = 'active'
+        loranode.save()
     return render_to_response("node_index.html", {'all_nodes': all_nodes})
 
 
@@ -62,6 +80,17 @@ def loranode_detail(request, node_id):
     except:
         return HttpResponse("Get data filed!\n")
 
+    if rawdatas:
+        if (datetime.now() - localtime(rawdatas[0].time).replace(tzinfo=None)).seconds > loranode.heartbeat_interval:
+            loranode.device_status = 'inactive'
+        else:
+            loranode.device_status = 'active'
+    else:
+        if (datetime.now() - localtime(loranode.register_time).replace(tzinfo=None)).seconds > loranode.heartbeat_interval:
+            loranode.device_status = 'inactive'
+        else:
+            loranode.device_status = 'active'
+    loranode.save()
     loranodedata_update(node_id)
     return render_to_response("node_test.html", {'loranode': loranode, 'rawdatas': rawdatas, 'servicedatas': servicedatas})
 
@@ -188,7 +217,7 @@ def loranodedata_update(node_id):
             data.delete()
         except:
             print("delete date fail!\n")
-            
+
     return 1
 
 
