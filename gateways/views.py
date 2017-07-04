@@ -51,7 +51,7 @@ def gateway_detail(request, gateway_id):
         return HttpResponse("Get data filed!\n")
 
     gatewaydata_update(gateway_id)
-    return render_to_response("gateway_test.html", {'gateway': gateway, 'gateway_datas': gateway_datas})
+    return render_to_response("gateway_detail.html", {'gateway': gateway, 'gateway_datas': gateway_datas})
 
 
 def gateway_modify(request, gateway_id):
