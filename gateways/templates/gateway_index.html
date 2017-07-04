@@ -58,44 +58,27 @@
 
                         <tbody>
 
-
-                          <tr class="even pointer">
+                        {% for gateway in gateways %}
+                                <tr class="even pointer">
                             <td class="a-center ">
                               <input type="checkbox" class="flat" name="table_records">
                             </td>
-                            <td class=" ">1</td>
-                            <td class=" ">T6CN470S0011 </td>
-                            <td class=" ">曙光基站 <i class="success fa fa-long-arrow-up"></i></td>
+                            <td class=" ">{{ loop.counter }}</td>
+                            <td class=" " ><a href="detail/{{ gateway.gateway_id }}">{{ gateway.gateway_id }}</td></a>
+                            <td class=" ">{{ gateway.gateway_name }} <i class="success fa fa-long-arrow-up"></i></td>
                             <td class=" ">TBG-510</td>
-                            <td class=" ">[ E: 113.376266 | N: 23.169518 ]</td>
-                            <td class="a-right a-right ">2.1.1.435_RC</td>
+                            <td class=" ">[ E: {{ gateway.latitude }} | N: {{ gateway.longitude }} ]</td>
+                            <td class="a-right a-right ">{{ gateway.vendor }}</td>
                             <td class=" "><span class="glyphicon glyphicon-ok  green" aria-hidden="true"></span></td>
-                            <td class=" ">online</td>
+                            <td class=" ">{{ gateway.device_status }}</td>
                             
                             <td class=" last">
                             <a href="#"><span class="glyphicon glyphicon-pencil  blue" aria-hidden="true"></span></a>
                             <a href="#"><span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true"></span></a>
                               </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
+                          </tr> 
+                        {% endfor %}
 
-                            <td class=" ">2</td>
-                            <td class=" ">T6CN470S0012 </td>
-                            <td class=" ">方大基站 <i class="success fa fa-long-arrow-up"></i></td>
-                            <td class=" ">TBG-510</td>
-                            <td class=" ">[ E: 113.376266 | N: 23.169520 ]</td>
-                            <td class="a-right a-right ">2.1.1.435_RC</td>
-                            <td class=" "><span class="glyphicon glyphicon-ok  green" aria-hidden="true"></span></td>
-                            <td class=" ">online</td>
-                            
-                            <td class=" last">
-                            <a href="#"><span class="glyphicon glyphicon-pencil  blue" aria-hidden="true"></span></a>
-                            <a href="#"><span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true"></span></a>
-                              </td>
-                          </tr>
 
                         </tbody>
                       </table>
