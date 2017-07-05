@@ -43,6 +43,8 @@ def index(request):
 
 def loranode_add(request):
     if request.method == 'POST':
+        #check the post value
+        print(request.POST)
         form = LoRaNodeInfoForm(request.POST)
         if form.is_valid():
             if LoRaNode.objects.filter(node_id=form.cleaned_data['node_id']):
@@ -52,6 +54,7 @@ def loranode_add(request):
             loranode.save()
             return HttpResponseRedirect('/nodes/')
         else:
+            print("form is not valid!!")
             return HttpResponse("form is not valid!!!")
     else:
         form = LoRaNodeInfoForm()
