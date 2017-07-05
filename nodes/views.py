@@ -46,6 +46,8 @@ def loranode_add(request):
         #check the post value
         print(request.POST)
         form = LoRaNodeInfoForm(request.POST)
+        print(form.errors)
+        print(form.non_field_errors())
         if form.is_valid():
             if LoRaNode.objects.filter(node_id=form.cleaned_data['node_id']):
                 return HttpResponse("node with ID %s exist!" % (form.cleaned_data['node_id']))
