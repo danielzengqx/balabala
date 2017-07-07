@@ -30,6 +30,8 @@
                     <br />
                     <form action="." method="post" id="service-form" data-parsley-validate class="form-horizontal form-label-left">
 					{% csrf_token %}
+					{{ form.errors }}
+					{{ non_field_errors }}
 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="service-name">Service Name <span class="required">*</span>

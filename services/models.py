@@ -10,8 +10,8 @@ class Service(models.Model):
     description = models.CharField(max_length=3000, default='no description.')
     rule = models.CharField(max_length=3000, default='{"Desc":[{"From":16,"To":1,"Type":"enum","prefix":"地磁:","enum": {"0":"无车","1":"有车"}},{"From":12,"To":4,"Type":"enum","prefix":"类型:","enum": {"0":"检测","1":"检测","2":"心跳"}},{"From":17,"To":7,"Type":"numerical","prefix":"电量: ","suffix":"%"}]}')
     register_time = models.DateTimeField(auto_now_add=True)
-    register_nodes = models.IntegerField(default=15)
-    active_nodes = models.IntegerField(default=5)
+    register_nodes = models.IntegerField(default=0)
+    active_nodes = models.IntegerField(default=0)
 
     class Meta:
         ordering = ('service_id', 'service_name',)

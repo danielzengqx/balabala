@@ -28,20 +28,17 @@ def service_add(request):
         print(request.POST)
         form = ServiceInfoForm(request.POST)
         if form.is_valid():
-            if Service.objects.filter(service_id=form.cleaned_data['service_id']):
-                return HttpResponse("service with ID %s exist!" % (form.cleaned_data['service_id']))
-
             print('form is valid!')
-            servicename = form.cleaned_data['service_name']
-            serviceid = form.cleaned_data['service_id']
-            maxnodes = form.cleaned_data['max_nodes']
-            url = form.cleaned_data['url']
-            description = form.cleaned_data['description']
-            service = Service(service_id=serviceid, service_name=servicename, max_nodes=maxnodes, url=url, description=description )
+            service = form.save(commit=False)
             service.save()
             return HttpResponseRedirect('/services/')
         else:
-            return HttpResponse("form is not valid!!!")
+            print('form is not valid!')
+            template = "service_add.html"
+            context = {
+                "form":form
+            }
+            return render(request, template, context)
     else:
         form = ServiceInfoForm()
     template = "service_add.html"

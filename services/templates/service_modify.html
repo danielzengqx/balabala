@@ -63,7 +63,7 @@
                         </label>
 						<div class="col-md-6 col-sm-6 col-xs-24">
 						  <textarea id="service-des" class="form-control" name="description" data-parsley-trigger="keyup" 
-                            data-parsley-validation-threshold="10" value="{{ single_service.description }}"></textarea>
+                            data-parsley-validation-threshold="10" value="{{ single_service.description }}">{{ single_service.description }}</textarea>
                         </div>
 					  </div>
                       <div class="form-group">
@@ -71,7 +71,7 @@
                         </label>
 						<div class="col-md-6 col-sm-6 col-xs-24">
 						  <textarea id="service-rule" class="form-control" name="rule" data-parsley-trigger="keyup" 
-                            data-parsley-validation-threshold="10" value="{{ single_service.rule }}"></textarea>
+                            data-parsley-validation-threshold="10" value="{{ single_service.rule }}">{{ single_service.rule }}</textarea>
 						  <br/>
                         </div>
 					  </div>
