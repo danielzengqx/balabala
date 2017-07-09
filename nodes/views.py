@@ -42,29 +42,25 @@ def index(request):
 
 
 def loranode_add(request):
+    template = "node_add.html"
     if request.method == 'POST':
         #check the post value
         print(request.POST)
         form = LoRaNodeInfoForm(request.POST)
-        print(form.errors)
-        print(form.non_field_errors())
         if form.is_valid():
-            if LoRaNode.objects.filter(node_id=form.cleaned_data['node_id']):
-                return HttpResponse("node with ID %s exist!" % (form.cleaned_data['node_id']))
-
             loranode = form.save(commit=False)
             loranode.save()
             return HttpResponseRedirect('/nodes/')
         else:
             print("form is not valid!!")
-            return HttpResponse("form is not valid!!!")
+            return render(request, template, {"form": form})
     else:
         form = LoRaNodeInfoForm()
-    all_services = Service.objects.all()
-    template = "node_add.html"
-    context = {
-        "all_services": all_services,
-    }
+        all_services = Service.objects.all()
+        context = {
+            'all_services': all_services,
+            'form': form,
+        }
 
     return render(request, template, context)
 
@@ -106,6 +102,7 @@ def loranode_modify(request, node_id):
     except LoRaNode.DoesNotExist:
         return HttpResponse("loranode with ID %s doesn't exist!" % (node_id))
 
+    template = "node_test.html"
     if request.method == 'POST':
         form = LoRaNodeInfoForm(request.POST)
         if form.is_valid():
@@ -113,11 +110,12 @@ def loranode_modify(request, node_id):
             loranode.save()
             return HttpResponseRedirect('/nodes/')
         else:
-            return HttpResponse('form wrong!')
+            print("form is not valid!!")
+            return render(request, template, {"form": form})
     else:
         form = LoRaNodeInfoForm()
 
-    return render_to_response("node_test.html", {'form': form})
+    return render_to_response(template, {'form': form})
 
 
 @csrf_exempt

@@ -40,21 +40,20 @@ def index(request):
 
 
 def gateway_add(request):
+    template = "gateway_add.html"
     if request.method == 'POST':
         form = GatewayInfoForm(request.POST)
         if form.is_valid():
-            if Gateway.objects.filter(gateway_id=form.cleaned_data['gateway_id']):
-                return HttpResponse("gateway with ID %s exist!" % (form.cleaned_data['gateway_id']))
-
             gateway = form.save(commit=False)
             gateway.save()
             return HttpResponseRedirect('/gateways/')
         else:
-            return HttpResponse("form is not valid!!!")
+            print("form is not valid!!")
+            return render(request, template, {"form": form})
     else:
         form = GatewayInfoForm()
 
-    return render_to_response("gateway_test.html", {'form': form})
+    return render_to_response(template, {'form': form})
 
 
 def gateway_detail(request, gateway_id):
@@ -89,6 +88,7 @@ def gateway_modify(request, gateway_id):
     except Gateway.DoesNotExist:
         return HttpResponse("gateway with ID %s doesn't exist!" % (gateway_id))
 
+    template = "gateway_test.html"
     if request.method == 'POST':
         form = GatewayInfoForm(request.POST)
         if form.is_valid():
@@ -96,11 +96,12 @@ def gateway_modify(request, gateway_id):
             gateway.save()
             return HttpResponseRedirect('/gateways/')
         else:
-            return HttpResponse('form wrong!')
+            print("form is not valid!!")
+            return render(request, template, {"form": form})
     else:
         form = GatewayInfoForm()
 
-    return render_to_response("gateway_test.html", {'form': form})
+    return render_to_response(template, {'form': form})
 
 
 #@csrf_exempt

@@ -4,6 +4,12 @@ from .models import LoRaNode, NodeRawData, ServiceData
 
 
 class LoRaNodeInfoForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for item in ['DevAddr', 'NwkSKey', 'AppSKey']:
+            self.fields[item].required = False
+
     class Meta:
         model = LoRaNode
         fields = ('node_id', 'node_name', 'node_type',
