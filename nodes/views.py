@@ -61,8 +61,7 @@ def loranode_add(request):
             'all_services': all_services,
             'form': form,
         }
-
-    return render(request, template, context)
+        return render(request, template, context)
 
 
 def loranode_detail(request, node_id):
@@ -248,6 +247,9 @@ class NodeRawDataList(generics.ListCreateAPIView):
     queryset = NodeRawData.objects.all()
     serializer_class = NodeRawDataSerializer
 
+    def post(self, request, *args, **kwargs):
+        servicedata_create(types='carport', **request.POST)
+        return self.create(request, *args, **kwargs)
 
 class NodeRawDataDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = NodeRawData.objects.all()
@@ -263,3 +265,40 @@ class ServiceDataList(generics.ListCreateAPIView):
 class ServiceDataDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ServiceData.objects.all()
     serializer_class = ServiceDataSerializer
+
+
+def servicedata_create(types='carport', **info):
+    print(types, info, '\n')
+    if types in ['carport', 'common_types']:
+        try:
+            loranode = LoRaNode.objects.get(node_id=info['node'][0])
+        except LoRaNode.DoesNotExist:
+            return HttpResponse("loranode with ID %s doesn't exist!" % (info['node'][0]))
+
+        try:
+            gateway = Gateway.objects.get(gateway_id=info['gateway'][0])
+        except Gateway.DoesNotExist:
+            return HttpResponse("gateway with ID %s doesn't exist!" % (info['gateway'][0]))
+
+        print(re.split(r'#', info['data'][0]), '\n')
+        servicedata = {
+            'info1': '',
+            'info2': '',
+            'info3': '',
+            'data1': '',
+            'data2': '',
+            'data3': '',
+        }
+        (servicedata['info1'], servicedata['data1'], servicedata['info2'], servicedata['data2'], servicedata['info3'], servicedata['data3'], *unuse) = re.split(r'#', info['data'][0] + '######')
+        service_data = ServiceData(**servicedata, node=loranode, gateway=gateway).save()
+
+    elif types in ['type1', ]:
+        pass
+
+    elif types in ['type2', ]:
+        pass
+
+    else:
+        print("service data create fail, unknow service type: %s!\n" % (types))
+
+        return 0

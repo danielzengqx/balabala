@@ -52,8 +52,7 @@ def gateway_add(request):
             return render(request, template, {"form": form})
     else:
         form = GatewayInfoForm()
-
-    return render_to_response(template, {'form': form})
+        return render_to_response(template, {'form': form})
 
 
 def gateway_detail(request, gateway_id):

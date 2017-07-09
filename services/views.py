@@ -15,14 +15,33 @@ from rest_framework import generics
 # Create your views here.
 def index(request):
     all_services = Service.objects.all()
+
+    for service in all_services:
+        try:
+            loranodes = service.node_set.all().order_by('-register_time')
+        except:
+            return HttpResponse("Get loranodes filed!\n")
+
+        register_nodes = 0
+        active_nodes = 0
+        for node in loranodes:
+            register_nodes += 1
+            if node.device_status == 'active':
+                active_nodes += 1
+        service.register_nodes =  register_nodes
+        service.active_nodes = active_nodes
+        service.save()
+
     template = "service_index.html"
     context = {
         "all_services": all_services,
+        'loranodes': loranodes,
 	}
     return render(request, template, context)
 
 
 def service_add(request):
+    template = "service_add.html"
     if request.method == 'POST':
         #check the post value
         print(request.POST)
@@ -34,17 +53,14 @@ def service_add(request):
             return HttpResponseRedirect('/services/')
         else:
             print('form is not valid!')
-            template = "service_add.html"
             context = {
                 "form":form
             }
             return render(request, template, context)
     else:
         form = ServiceInfoForm()
-    template = "service_add.html"
-    context = {
-    }
-    return render(request, template, context)
+        context = {}
+        return render(request, template, context)
 
 
 def service_detail(request, service_id):
@@ -53,6 +69,21 @@ def service_detail(request, service_id):
         print('single_service: % s' % single_service)
     except Service.DoesNotExist:
         return HttpResponse("Service with ID %s doesn't exist!" % (service_id))
+
+    try:
+        loranodes = single_service.node_set.all().order_by('-register_time')
+    except:
+        return HttpResponse("Get loranodes filed!\n")
+
+    register_nodes = 0
+    active_nodes = 0
+    for node in loranodes:
+        register_nodes += 1
+        if node.device_status == 'active':
+            active_nodes += 1
+    single_service.register_nodes =  register_nodes
+    single_service.active_nodes = active_nodes
+    single_service.save()
 
     template = "service_detail.html"
     context = {
@@ -67,6 +98,7 @@ def service_modify(request, service_id):
     except Service.DoesNotExist:
         return HttpResponse("service with ID %s doesn't exist!" % (service_id))
 
+    template = "service_modify.html"
     if request.method == 'POST':
         #check the post value
         print(request.POST)
@@ -81,15 +113,18 @@ def service_modify(request, service_id):
             Service.objects.filter(service_id=service_id).update(service_name=servicename, max_nodes=maxnodes, url=url, description=description, rule=rule)
             return HttpResponseRedirect('/services/')
         else:
-            return HttpResponse("form is not valid!!!")
+            print('form is not valid!')
+            context = {
+                "form": form,
+            }
+            return render(request, template, context)
 
     else:
         form = ServiceInfoForm()
-
-    template = "service_modify.html"
-    context = {
-        "single_service": single_service
-    }
+        context = {
+            "single_service": single_service,
+            "form": form,
+        }
     return render(request, template, context)
 
 
