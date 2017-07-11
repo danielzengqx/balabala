@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from .form import ServiceInfoForm
 from .models import Service
+from nodes.models import LoRaNode
 
 ### REST API ###
 from django.http import HttpResponse, JsonResponse
@@ -85,9 +86,12 @@ def service_detail(request, service_id):
     single_service.active_nodes = active_nodes
     single_service.save()
 
+    service_nodes = LoRaNode.objects.filter(service=service_id)
+
     template = "service_detail.html"
     context = {
-        "single_service":single_service
+        "single_service":single_service,
+        "service_nodes":service_nodes
     }
     return render(request, template, context)
 

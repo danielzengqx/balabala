@@ -150,6 +150,9 @@
                       <thead>
                         <tr>
                           <th>No.</th>
+						  <th>ID</th>
+						  <th>Name</th>
+						  <th>Type</th>
                           <th>EUI</th>
                           <th>Address</th>
                           <th>Class</th>
@@ -158,58 +161,30 @@
                         </tr>
                       </thead>
 
-
                       <tbody>
+                        <!-- display all of the current services by for loop -->
+                        {% for node in service_nodes %}
                         <tr>
-                          <td>1</td>
-                          <td>FF07550001001</td>
-                          <td>FF0001001</td>
+                          <td>{{ forloop.counter }}</td>
+                          <td>{{ node.node_id }}</td>
+						  <td>{{ node.node_name }}</td>
+						  <td>{{ node.node_type }}</td>
+						  <td>{{ node.EUI }}</td>
+						  <td>{{ node.DevAddr }}</td>
                           <td>A</td>
                           <td>2011/04/25</td>
+						  {% if node.device_control == "ENABLED" %}
                           <td class=" ">
 						    <span class="glyphicon glyphicon-ok  green" aria-hidden="true"></span>
 						  </td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>FF07550001002</td>
-                          <td>FF0001002</td>
-                          <td>A</td>
-                          <td>2011/04/25</td>
-                          <td class=" ">
-						    <span class="glyphicon glyphicon-ok  green" aria-hidden="true"></span>
+						  {% else %}
+						  <td class=" ">
+						    <span class="glyphicon glyphicon-remove  red" aria-hidden="true"></span>
 						  </td>
+						  {% endif %}
                         </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>FF07550001003</td>
-                          <td>FF0001003</td>
-                          <td>A</td>
-                          <td>2011/04/25</td>
-                          <td class=" ">
-						    <span class="glyphicon glyphicon-ok  green" aria-hidden="true"></span>
-						  </td>
-                        </tr>
-                        <tr>
-                          <td>4</td>
-                          <td>FF07550001004</td>
-                          <td>FF0001004</td>
-                          <td>A</td>
-                          <td>2011/04/25</td>
-                          <td class=" ">
-						    <span class="glyphicon glyphicon-ok  green" aria-hidden="true"></span>
-						  </td>
-                        </tr>
-                        <tr>
-                          <td>5</td>
-                          <td>FF07550001005</td>
-                          <td>FF0001005</td>
-                          <td>A</td>
-                          <td>2011/04/25</td>
-                          <td class=" ">
-						    <span class="glyphicon glyphicon-ok  green" aria-hidden="true"></span>
-						  </td>
-                        </tr>
+						{% endfor %}
+
                       </tbody>
                     </table>
                   </div>
@@ -273,7 +248,7 @@
           datasets: [{
             label: '# of Votes',
             backgroundColor: "#26B99A",
-            data: [77, 30, 40, 28, 92, 50, 45]
+            data: [100, 30, 40, 28, 92, 50, 45]
           }, {
             label: '# of Votes',
             backgroundColor: "#03586A",
