@@ -83,19 +83,21 @@
                           <input type="text" id="node-longitude" name="longitude" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
+                      
+
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Node Control</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div id="device-control" class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" name="device_control" value="ENABLED"> &nbsp; ENABLED &nbsp;
-                            </label>
-                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" name="device_control" value="DISABLED"> DISABLED
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <div class="">
+                            <label>
+                              <input type="checkbox" class="js-switch" id="device_control" name="device_control" checked /> Enabled
                             </label>
                           </div>
+
                         </div>
                       </div>
+
+
 					  <div class="form-group">
                         <label for="heartbeat" class="control-label col-md-3 col-sm-3 col-xs-12">Heartbeat Interveal 
 						</label>
@@ -166,6 +168,8 @@
     <script src="{% static 'vendors/nprogress/nprogress.js' %}"></script>
     <!-- iCheck -->
     <script src="{% static 'vendors/iCheck/icheck.min.js' %}"></script>
+    <!-- Switchery -->
+    <script src="{% static 'vendors/switchery/dist/switchery.min.js' %}"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="{% static 'build/js/custom.min.js' %}"></script>
