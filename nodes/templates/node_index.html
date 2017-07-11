@@ -200,11 +200,12 @@
         zoom: 16
     });    
 
-    addMarker(113.95736,22.53765, "高新南十道车位0010");
-    addMarker(113.95836,22.53865, "高新南十道车位0022");
+    {% for node in all_nodes %}
+    addMarker("{{ node.latitude }}", "{{ node.longitude }}", "{{ node.node_id }}", "{{ node.node_name }}", "{{ node.node_type }}", "{{ node.device_status }}");
+    {% endfor %}
 
     //添加marker标记
-    function addMarker(l, s, data) {
+    function addMarker(l, s, id, name, type, status) {
         //map.clearMap();
         var marker = new AMap.Marker({
             map: map,
@@ -217,11 +218,11 @@
     
 
     //实例化信息窗体
-    var title = data + '<span style="font-size:11px;color:#F00;">价格:318</span>',
+    var title = name + '<span style="font-size:11px;color:#F00;">' + id +'</span>',
         content = [];
-    content.push("<img src='{% static 'images/shell.jpeg'%}'>地址：北京市朝阳区阜通东大街6号院3号楼东北8.3公里");
-    content.push("电话：010-64733333");
-    content.push("<a href='https://ditu.amap.com/detail/B000A8URXB?citycode=110105'>详细信息</a>");
+    content.push("类型：" + type);
+    content.push("状态：" + status);
+    content.push("<a href=detail/"+  id +">详细信息</a>");
     var infoWindow = new AMap.InfoWindow({
         isCustom: true,  //使用自定义窗体
         content: createInfoWindow(title, content.join("<br/>")),
@@ -276,6 +277,7 @@
         map.clearInfoWindow();
     }
 </script>
+
 <script type="text/javascript" src="https://webapi.amap.com/demos/js/liteToolbar.js"></script>
   
 {% endblock %}
