@@ -96,12 +96,13 @@ def loranode_detail(request, node_id):
 
 
 def loranode_modify(request, node_id):
+    all_services = Service.objects.all()
     try:
         loranode = LoRaNode.objects.get(node_id=node_id)
     except LoRaNode.DoesNotExist:
         return HttpResponse("loranode with ID %s doesn't exist!" % (node_id))
 
-    template = "node_test.html"
+    template = "node_modify.html"
     if request.method == 'POST':
         form = LoRaNodeInfoForm(request.POST)
         if form.is_valid():
@@ -113,8 +114,12 @@ def loranode_modify(request, node_id):
             return render(request, template, {"form": form})
     else:
         form = LoRaNodeInfoForm()
-
-    return render_to_response(template, {'form': form})
+        context = {
+            "loranode": loranode,
+            "all_services": all_services,
+            "form": form,
+        }
+    return render(request, template, context)
 
 
 @csrf_exempt
