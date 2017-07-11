@@ -273,12 +273,14 @@ def servicedata_create(types='carport', **info):
         try:
             loranode = LoRaNode.objects.get(node_id=info['node'][0])
         except LoRaNode.DoesNotExist:
-            return HttpResponse("loranode with ID %s doesn't exist!" % (info['node'][0]))
+            print("loranode with ID %s doesn't exist!" % (info['node'][0]))
+            return
 
         try:
             gateway = Gateway.objects.get(gateway_id=info['gateway'][0])
         except Gateway.DoesNotExist:
-            return HttpResponse("gateway with ID %s doesn't exist!" % (info['gateway'][0]))
+            print("gateway with ID %s doesn't exist!" % (info['gateway'][0]))
+            return
 
         print(re.split(r'#', info['data'][0]), '\n')
         servicedata = {
