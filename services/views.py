@@ -48,6 +48,9 @@ def service_add(request):
         print(request.POST)
         form = ServiceInfoForm(request.POST)
         if form.is_valid():
+            if Service.objects.filter(service_id=form.cleaned_data['service_id']):
+                print('service_id already exist!')
+                return HttpResponse("Service with ID %s already exist!" % form.cleaned_data['service_id'])
             print('form is valid!')
             service = form.save(commit=False)
             service.save()
@@ -106,15 +109,17 @@ def service_modify(request, service_id):
     if request.method == 'POST':
         #check the post value
         print(request.POST)
-        form = ServiceInfoForm(request.POST)
+        form = ServiceInfoForm(request.POST, instance=single_service)
         if form.is_valid():
             print('form is valid!')
-            servicename = form.cleaned_data['service_name']
-            maxnodes = form.cleaned_data['max_nodes']
-            url = form.cleaned_data['url']
-            description = form.cleaned_data['description']
-            rule = form.cleaned_data['rule']
-            Service.objects.filter(service_id=service_id).update(service_name=servicename, max_nodes=maxnodes, url=url, description=description, rule=rule)
+            #servicename = form.cleaned_data['service_name']
+            #maxnodes = form.cleaned_data['max_nodes']
+            #url = form.cleaned_data['url']
+            #description = form.cleaned_data['description']
+            #rule = form.cleaned_data['rule']
+            #Service.objects.filter(service_id=service_id).update(service_name=servicename, max_nodes=maxnodes, url=url, description=description, rule=rule)
+            single_service = form.save(commit=False)
+            single_service.save()
             return HttpResponseRedirect('/services/')
         else:
             print('form is not valid!')

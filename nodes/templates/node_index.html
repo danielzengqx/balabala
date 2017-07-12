@@ -78,7 +78,8 @@
                             
                             <td class=" last">
                             <a href="/nodes/modify/{{ node.node_id }}"><span class="glyphicon glyphicon-pencil  blue" aria-hidden="true"></span></a>
-                            <a href="#"><span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true"></span></a>
+                            <!--a href="#"><span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true"></span></a-->
+							<span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true" id="{{ node.node_id }}" onClick="delete_node(this.id)"></span>
                               </td>
                           </tr>
 						  
@@ -276,6 +277,22 @@
     function closeInfoWindow() {
         map.clearInfoWindow();
     }
+	
+	//删除node
+	function delete_node(node_id)
+      {
+      var result = confirm("Are you sure to delete this node?");
+      if (result) {
+          //Logic to delete the item
+          $.post( "/nodes/delete/"+node_id+"/", function( data ) {
+            // $( ".result" ).html( data );  //insert data from the request to the page if need
+            location.reload();   //Regresh the page
+
+          });
+
+
+      }
+    };
 </script>
 
 <script type="text/javascript" src="https://webapi.amap.com/demos/js/liteToolbar.js"></script>

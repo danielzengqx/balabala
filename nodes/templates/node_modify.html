@@ -28,18 +28,16 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form action="/nodes/" method="post" id="node-form" data-parsley-validate class="form-horizontal form-label-left">
+                    <form action="." method="post" id="node-form" data-parsley-validate class="form-horizontal form-label-left">
 					{% csrf_token %}
+					{{ form.errors }}
+					{{ non_field_errors }}
 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="service-id">Service ID <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select id="service" class="form-control" for="service" required="required" name="service" value="{{ loranode.service.service_id }}">
-							{% for service in all_services %}
-                            <option value="{{ service.service_id }}">{{ service.service_id }}</option>
-							{% endfor %}
-                          </select>
+                          <input type="text" id="service" name="service" required="required" class="form-control" value="{{ loranode.service.service_id }}" readonly="readonly">
                         </div>
                       </div>
                       <div class="form-group">
@@ -53,7 +51,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Node ID <span class="required">*</span>
 						</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="node-id" name="node_id" required="required" class="form-control " value="{{ loranode.node_id }}">
+                          <input type="text" id="node-id" name="node_id" required="required" class="form-control " value="{{ loranode.node_id }}" readonly="readonly">
                         </div>
                       </div>
                       <div class="form-group">

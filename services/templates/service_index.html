@@ -195,7 +195,7 @@
       var result = confirm("Are you sure to delete the service?");
       if (result) {
           //Logic to delete the item
-          $.post( "/services/delete/"+service_id, function( data ) {
+          $.post( "/services/delete/"+service_id+"/", function( data ) {
             // $( ".result" ).html( data );  //insert data from the request to the page if need
             location.reload();   //Regresh the page
 

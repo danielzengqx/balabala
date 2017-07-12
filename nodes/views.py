@@ -104,10 +104,13 @@ def loranode_modify(request, node_id):
 
     template = "node_modify.html"
     if request.method == 'POST':
-        form = LoRaNodeInfoForm(request.POST)
+        print(request.POST)
+        form = LoRaNodeInfoForm(request.POST, instance=loranode)
         if form.is_valid():
+            print('form is valid!')
             loranode = form.save(commit=False)
             loranode.save()
+
             return HttpResponseRedirect('/nodes/')
         else:
             print("form is not valid!!")
