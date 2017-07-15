@@ -76,7 +76,7 @@
                                 <td>{{ loranode.longitude }}</td>
                               </tr>
 							  <tr>
-                                <th scope="row">ENABLED</th>
+                                <th scope="row">Enabled</th>
 							    {% if loranode.device_control == "ENABLED" %}
                                 <td class=" "><span class="glyphicon glyphicon-ok  green" aria-hidden="true"></span></td>
 							    {% else %}
@@ -177,12 +177,6 @@
                   <div class="x_content">
 
                     <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Type</th>
-                          <th>Value</th>
-                        </tr>
-                      </thead>
                       <tbody>
                         <tr>
                           <th scope="row">Send message to this node</th>
@@ -257,7 +251,7 @@
                         {% for rawdata in rawdatas %}
                         <tr>
                           <td>{{ forloop.counter }}</td>
-                          <td>{{ rawdata.gateway }}</td>
+                          <td>{{ rawdata.gateway.gateway_id }}</td>
 						  <td>{{ rawdata.time }}</td>
 						  <td>90%</td>
 						  <td>{{ rawdata.data }}</td>

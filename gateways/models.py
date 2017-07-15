@@ -15,6 +15,7 @@ class Gateway(models.Model):
     )
     gateway_type = models.CharField(max_length=64, choices=DEVICE_TYPE_CHOICES, default='LoRa',)
 
+    country = models.CharField(max_length=64, default='China', )
     province = models.CharField(max_length=64, default='Guangdong',)
     city = models.CharField(max_length=64, default='Guangzhou',)
     address = models.CharField(max_length=64, default='Earth')
