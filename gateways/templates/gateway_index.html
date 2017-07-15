@@ -44,13 +44,11 @@
                             </th>
 
                             <th class="column-title">No.</th>
-
-                            <th class="column-title">Gateway ID</th>
-                            <th class="column-title">Title</th>
-
-                            <th class="column-title">Model</th>
+                            <th class="column-title">ID</th>
+                            <th class="column-title">Name</th>
+                            <th class="column-title">Type</th>
                             <th class="column-title">Location</th>
-                            <th class="column-title">Version</th>
+                            <th class="column-title">Vendor</th>
                             <th class="column-title">Enable</th>
                             <th class="column-title">Status</th>
                             <th class="column-title no-link last"><span class="nobr">Action</span>
@@ -64,14 +62,14 @@
                         <tbody>
 
                         {% for gateway in gateways %}
-                                <tr class="even pointer">
+                            <tr class="even pointer">
                             <td class="a-center ">
                               <input type="checkbox" class="flat" name="table_records">
                             </td>
-                            <td class=" ">{{ loop.counter }}</td>
-                            <td class=" " ><a href="detail/{{ gateway.gateway_id }}">{{ gateway.gateway_id }}</td></a>
-                            <td class=" ">{{ gateway.gateway_name }} <i class="success fa fa-long-arrow-up"></i></td>
-                            <td class=" ">TBG-510</td>
+                            <td class=" ">{{ forloop.counter }}</td>
+                            <td class=" "><a href="detail/{{ gateway.gateway_id }}">{{ gateway.gateway_id }}</td></a>
+                            <td class=" "><a href="detail/{{ gateway.gateway_id }}">{{ gateway.gateway_name }} </td>
+                            <td class=" ">{{ gateway.gateway_type }}</td>
                             <td class=" ">[ E: {{ gateway.latitude }} | N: {{ gateway.longitude }} ]</td>
                             <td class="a-right a-right ">{{ gateway.vendor }}</td>
                             <td class=" "><span class="glyphicon glyphicon-ok  green" aria-hidden="true"></span></td>

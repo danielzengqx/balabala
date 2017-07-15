@@ -28,6 +28,7 @@ class Node(models.Model):
     device_status = models.CharField(max_length=32, choices=(('active', 'active'), ('inactive', 'inactive')), default='active',)
     max_data_record = models.BigIntegerField(default=100000000,)
     heartbeat_interval = models.IntegerField(default=60 * 1,)
+    battery = models.CharField(max_length=64, default='99%')
     service = models.ForeignKey('services.Service')
     #datas = ListField(max_length=100, default=[])
 

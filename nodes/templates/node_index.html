@@ -68,12 +68,16 @@
                               <input type="checkbox" class="flat" name="table_records">
                             </td>
                             <td class=" ">{{ forloop.counter }}</td>
-                            <td class=" "><a href="/services/detail/{{ node.service.service_id }}">{{ node.service }} </a></td>
+                            <td class=" "><a href="/services/detail/{{ node.service.service_id }}">{{ node.service.service_id }} </a></td>
                             <td class=" "><a href="/nodes/detail/{{ node.node_id }}">{{ node.node_id }} </a></td>
                             <td class=" "><a href="/nodes/detail/{{ node.node_id }}">{{ node.node_name }} </td>
                             <td class=" ">{{ node.node_type }} </i></td>
                             <td class=" ">[ E: {{ node.latitude }} | N: {{ node.longitude }} ]</td>
+							{% if node.device_control == "ENABLED" %}
                             <td class=" "><span class="glyphicon glyphicon-ok  green" aria-hidden="true"></span></td>
+							{% else %}
+							<td class=" "><span class="glyphicon glyphicon-remove  red" aria-hidden="true"></span></td>
+							{% endif %}
                             <td class=" ">{{ node.device_status }}</td>
                             
                             <td class=" last">

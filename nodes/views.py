@@ -92,7 +92,7 @@ def loranode_detail(request, node_id):
             loranode.device_status = 'active'
     loranode.save()
     loranodedata_update(node_id)
-    return render_to_response("node_test.html", {'loranode': loranode, 'rawdatas': rawdatas, 'servicedatas': servicedatas})
+    return render_to_response("node_detail.html", {'loranode': loranode, 'rawdatas': rawdatas, 'servicedatas': servicedatas})
 
 
 def loranode_modify(request, node_id):

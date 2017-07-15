@@ -7,7 +7,7 @@ class LoRaNodeInfoForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for item in ['DevAddr', 'NwkSKey', 'AppSKey', 'device_control']:
+        for item in ['DevAddr', 'NwkSKey', 'AppSKey', 'device_control', 'battery']:
             self.fields[item].required = False
 
     class Meta:

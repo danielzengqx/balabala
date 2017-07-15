@@ -3,13 +3,14 @@ from django.utils import timezone
 
 
 class Gateway(models.Model):
-    gateway_id = models.CharField(max_length=64, default='ffff', unique=True, primary_key=True)
+    gateway_id = models.CharField(max_length=64, default='LO470CNSZDT001', unique=True, primary_key=True)
     gateway_name = models.CharField(max_length=64, default='no name')
-    vendor = models.CharField(max_length=64, default='Huawei')
+    vendor = models.CharField(max_length=64, default='Ericsson')
 
     DEVICE_TYPE_CHOICES = (
         ('LoRa', 'LoRa'),
         ('NB-IOT', 'NB-IOT'),
+        ('WiFi', 'WiFi'),
         ('others', 'others'),
     )
     gateway_type = models.CharField(max_length=64, choices=DEVICE_TYPE_CHOICES, default='LoRa',)
@@ -38,7 +39,7 @@ class Gateway(models.Model):
 class GatewayData(models.Model):
     data1 = models.CharField(max_length=128, default='data1')
     data2 = models.CharField(max_length=128, default='data2')
-    battery = models.CharField(max_length=64, default='5%')
+    battery = models.CharField(max_length=64, default='99%')
     gateway = models.ForeignKey('Gateway', on_delete=models.SET_NULL, blank=True, null=True,)
     time = models.DateTimeField(auto_now_add=True)
 

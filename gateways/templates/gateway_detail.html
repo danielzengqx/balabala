@@ -3,16 +3,37 @@
 {% block content %}
 
         <!-- page content -->
-
         <div class="right_col" role="main">
-            <div class="row">
+		    <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2><a href="/gateways/">Gateway Information</a> > <a href="/gateways/detail/{{ gateway.gateway_id }}">{{ gateway.gateway_name }}</a> </h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+			
 
+            <div class="row">
           <!-- content -->
               <div class="col-md-4 col-sm-4 col-xs-12">
                 <div class="x_panel">
 
                   <div class="x_title">
-                    <h2>Gateawy Detail</h2>
+                    <h2>Detail Information</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -33,28 +54,34 @@
 
                   <div class="x_content">
                     <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Type</th>
-                          <th>Value</th>
-                        </tr>
-                      </thead>
                       <tbody>
                         <tr>
-                          <th scope="row">Gateway ID</th>
+                          <th scope="row">ID</th>
                           <td>{{ gateway.gateway_id}}</td>
                         </tr>
                         <tr>
-                          <th scope="row">Gateway Name</th>
-                          <td>{{ gateway.gateway_name }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Gateway Vendor</th>
-                          <td>{{ gateway.gateway_vendor }}</td>
+                          <th scope="row">Vendor</th>
+                          <td>{{ gateway.vendor }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Type</th>
                           <td>{{ gateway.gateway_type}}</td>
+                        </tr>
+						<tr>
+                          <th scope="row">Enabled</th>
+						  {% if gateway.device_control == "ENABLED" %}
+                          <td class=" "><span class="glyphicon glyphicon-ok  green" aria-hidden="true"></span></td>
+						  {% else %}
+						  <td class=" "><span class="glyphicon glyphicon-remove  red" aria-hidden="true"></span></td>
+						  {% endif %}
+                        </tr>
+                        <tr>
+                          <th scope="row">Heartbeat</th>
+                          <td>{{ gateway.heartbeat_interval }}</td>
+                        </tr>
+						<tr>
+                          <th scope="row">Status</th>
+                          <td>{{ gateway.device_status }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Register Time</th>
@@ -64,21 +91,6 @@
                           <th scope="row">Last Alive</th>
                           <td>{{ gateway.Lastalive_time }}</td>
                         </tr>
-                        <tr>
-                        <tr>
-                          <th scope="row">Last Alive</th>
-                          <td>{{ gateway.Lastalive_time }}</td>
-                        </tr>
-                        <tr>
-                        <tr>
-                          <th scope="row">device_control</th>
-                          <td>{{ gateway.device_control }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Status</th>
-                          <td>{{ gateway.device_status }}</td>
-                        </tr>
-                        <tr>
                         <tr>
                           <th scope="row">Max Data Record</th>
                           <td>{{ gateway.max_data_record }}</td>
@@ -275,11 +287,8 @@
           <!-- /content 4-->     
           </div> <!-- end of row-->
             <div class="clearfix"></div>
-
-
-
-
-
+		  </div>
+		</div>
      </div>
         <!-- /page content -->
 {% endblock %}

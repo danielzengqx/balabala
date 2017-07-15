@@ -39,6 +39,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" id="gateway_id" required="required" name="gateway_id" class="form-control col-md-7 col-xs-12">
                         </div>
+						<span class="">Example: LO470CNSZHS001</span>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gatway_name">Gateway Name <span class="required">*</span>
@@ -51,7 +52,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gatway_name">Vendor<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="vendor" required="required" name="vendor" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="vendor" required="required" name="vendor" class="form-control col-md-7 col-xs-12" value="Ericsson">
                         </div>
                       </div>
 
@@ -62,6 +63,7 @@
                           <select id="gateway_type" class="form-control" required="required" name="gateway_type">
                             <option value="LoRa">LoRa</option>
                             <option value="NB-IOT">NB-IOT</option>
+							<option value="WiFi">WiFi</option>
                             <option value="others">others</option>
                           </select>
                         </div>
@@ -69,13 +71,13 @@
                       <div class="form-group">
                         <label for="ongitude" class="control-label col-md-3 col-sm-3 col-xs-12">Province</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="province" name="province" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="province" name="province" class="form-control col-md-7 col-xs-12" value="Guangdong">
                         </div>
                       </div>                      
                       <div class="form-group">
                         <label for="city" class="control-label col-md-3 col-sm-3 col-xs-12">City</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="city" name="city" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="city" name="city" class="form-control col-md-7 col-xs-12" value="Shenzhen">
                         </div>
                       </div> 
                       <div class="form-group">
@@ -83,37 +85,33 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" id="address" name="address" class="form-control col-md-7 col-xs-12">
                         </div>
+						
                       </div> 
+                      <div class="form-group">
+                        <label for="node-latitude" class="control-label col-md-3 col-sm-3 col-xs-12">Latitude </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="node-latitude" name="latitude" class="form-control col-md-7 col-xs-12">
+                        </div>
+						<span class="">Example: 113.957666</span>
+                      </div>
+                      <div class="form-group">
+                        <label for="node-longitude" class="control-label col-md-3 col-sm-3 col-xs-12">Longitude </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="node-longitude" name="longitude" class="form-control col-md-7 col-xs-12">
+                        </div>
+						<span class="">Example: 22.523888</span>
+                      </div>
 
                       <div class="form-group">
-                        <label for="address" class="control-label col-md-3 col-sm-3 col-xs-12">Ieartbeat Interval</label>
+                        <label for="address" class="control-label col-md-3 col-sm-3 col-xs-12">Heartbeat Interval(Second)</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="heartbeat_interval" name="heartbeat_interval" class="form-control col-md-7 col-xs-12">
+                          <input type="number" id="heartbeat_interval" name="heartbeat_interval" class="form-control col-md-7 col-xs-12" value="600">
                         </div>
                       </div> 
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Lastalive_time <span class="required">*</span>
+                        <label for="device_status" class="control-label col-md-3 col-sm-3 col-xs-12">Device Control <span class="required">*
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="Lastalive_time" name="Lastalive_time" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="device_status" class="control-label col-md-3 col-sm-3 col-xs-12">Device Status <span class="required">*
-            </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select id="device_status" class="form-control" required="required" name="device_status">
-                            <option value="active">active</option>
-                            <option value="inactive">inactive</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="device_status" class="control-label col-md-3 col-sm-3 col-xs-12">Device Status <span class="required">*
-            </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select id="device_control" class="form-control" required="required" name="device_control">
                             <option value="ENABLED">ENABLED</option>
@@ -125,7 +123,7 @@
                       <div class="form-group">
                         <label for="max_data_record" class="control-label col-md-3 col-sm-3 col-xs-12">max_data_record</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="max_data_record" name="max_data_record" class="form-control col-md-7 col-xs-12">
+                          <input type="number" id="max_data_record" name="max_data_record" class="form-control col-md-7 col-xs-12" value="100000">
                         </div>
                       </div>                                             
 
