@@ -22,10 +22,11 @@ from services.models import Service
 def index(request):
     all_nodes = LoRaNode.objects.order_by('node_id')
     for loranode in all_nodes:
+        rawdatas = ''
         try:
             rawdatas = loranode.noderawdata_set.all().order_by('-time')
         except:
-            return HttpResponse("Get rawdata filed!\n")
+            print("Get rawdata filed!\n")
 
         if rawdatas:
             if (datetime.now() - localtime(rawdatas[0].time).replace(tzinfo=None)).seconds > loranode.heartbeat_interval:
@@ -70,15 +71,17 @@ def loranode_detail(request, node_id):
     except LoRaNode.DoesNotExist:
         return HttpResponse("loranode with ID %s doesn't exist!" % (node_id))
 
+    rawdatas = ''
     try:
         rawdatas = loranode.noderawdata_set.all().order_by('-time')
     except:
-        return HttpResponse("Get rawdata filed!\n")
+        print("Get rawdata filed!\n")
 
+    servicedatas = ''
     try:
         servicedatas = loranode.servicedata_set.all().order_by('-time')
     except:
-        return HttpResponse("Get data filed!\n")
+        print("Get data filed!\n")
 
     if rawdatas:
         if (datetime.now() - localtime(rawdatas[0].time).replace(tzinfo=None)).seconds > loranode.heartbeat_interval:

@@ -34,7 +34,7 @@ class Node(models.Model):
 
     class Meta:
         ordering = ('node_id', 'node_type', 'register_time')
-        #abstract = True
+        abstract = True
 
     def __str__(self):
         return str(self.node_name)

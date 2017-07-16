@@ -23,7 +23,8 @@ def index(request):
         try:
             gateway_datas = gateway.gatewaydata_set.all().order_by('-time')
         except:
-            return HttpResponse("Get data filed!\n")
+            print("Get data filed!\n")
+            continue
 
         if gateway_datas:
             if (datetime.now() - localtime(gateway_datas[0].time).replace(tzinfo=None)).seconds > gateway.heartbeat_interval:
@@ -61,10 +62,11 @@ def gateway_detail(request, gateway_id):
     except Gateway.DoesNotExist:
         return HttpResponse("gateway with ID %s doesn't exist!" % (gateway_id))
 
+    gateway_datas = ''
     try:
         gateway_datas = gateway.gatewaydata_set.all().order_by('-time')
     except:
-        return HttpResponse("Get data filed!\n")
+        print("Get data filed!\n")
 
     if gateway_datas:
         if (datetime.now() - localtime(gateway_datas[0].time).replace(tzinfo=None)).seconds > gateway.heartbeat_interval:
@@ -89,7 +91,7 @@ def gateway_modify(request, gateway_id):
 
     template = "gateway_test.html"
     if request.method == 'POST':
-        form = GatewayInfoForm(request.POST)
+        form = GatewayInfoForm(request.POST, instance=gateway)
         if form.is_valid():
             gateway = form.save(commit=False)
             gateway.save()

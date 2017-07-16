@@ -17,11 +17,12 @@ from rest_framework import generics
 def index(request):
     all_services = Service.objects.all()
 
+    loranodes = ''
     for service in all_services:
         try:
             loranodes = service.node_set.all().order_by('-register_time')
         except:
-            return HttpResponse("Get loranodes filed!\n")
+            print("Get loranodes filed!\n")
 
         register_nodes = 0
         active_nodes = 0
@@ -74,10 +75,11 @@ def service_detail(request, service_id):
     except Service.DoesNotExist:
         return HttpResponse("Service with ID %s doesn't exist!" % (service_id))
 
+    loranodes = ''
     try:
-        loranodes = single_service.node_set.all().order_by('-register_time')
+        loranodes = single_service.loranode_set.all().order_by('-register_time')
     except:
-        return HttpResponse("Get loranodes filed!\n")
+        print("Get loranodes filed!\n")
 
     register_nodes = 0
     active_nodes = 0
@@ -89,12 +91,12 @@ def service_detail(request, service_id):
     single_service.active_nodes = active_nodes
     single_service.save()
 
-    service_nodes = LoRaNode.objects.filter(service=service_id)
+    #service_nodes = LoRaNode.objects.filter(service=service_id)
 
     template = "service_detail.html"
     context = {
         "single_service":single_service,
-        "service_nodes":service_nodes
+        "service_nodes":loranodes
     }
     return render(request, template, context)
 

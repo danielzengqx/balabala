@@ -13,11 +13,9 @@ class LoRaNodeInfoForm(ModelForm):
     class Meta:
         model = LoRaNode
         fields = ('node_id', 'node_name', 'node_type',
-            'latitude', 'longitude', 'device_control', 'max_data_record', 'heartbeat_interval',
+            'latitude', 'longitude', 'device_control', 'max_data_record', 'heartbeat_interval', 'battery',
             'service', 'EUI', 'DevAddr', 'NwkSKey', 'AppSKey')
-    #skip unique check for loranode_modify function
-    def validate_unique(self):
-        pass
+
 
 class NodeRawDataInfoForm(ModelForm):
     class Meta:

@@ -13,7 +13,3 @@ class ServiceInfoForm(ModelForm):
     class Meta:
         model = Service
         fields = ('service_id', 'service_name', 'max_nodes', 'url', 'description', 'rule')
-
-    # skip unique check for service_modify function
-    def validate_unique(self):
-        pass
