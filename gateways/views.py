@@ -88,24 +88,34 @@ def gateway_modify(request, gateway_id):
         gateway = Gateway.objects.get(gateway_id=gateway_id)
     except Gateway.DoesNotExist:
         return HttpResponse("gateway with ID %s doesn't exist!" % (gateway_id))
+    print('Gateway with gateway_id= %s is found!' %gateway_id)
 
-    template = "gateway_test.html"
+    template = "gateway_modify.html"
     if request.method == 'POST':
         form = GatewayInfoForm(request.POST, instance=gateway)
         if form.is_valid():
+            print('******form is valid!******')
             gateway = form.save(commit=False)
             gateway.save()
+            print('******form is updated!******')
             return HttpResponseRedirect('/gateways/')
         else:
             print("form is not valid!!")
-            return render(request, template, {"form": form})
+            context = {
+                "form": form,
+            }
+            return render(request, template, context)
     else:
         form = GatewayInfoForm()
+        context = {
+            'gateway': gateway,
+            'form': form,
+        }
 
-    return render_to_response(template, {'form': form})
+    return render(request, template, context)
 
 
-#@csrf_exempt
+@csrf_exempt
 def gateway_delete(request, gateway_id):
     try:
         gateway = Gateway.objects.get(gateway_id=gateway_id)

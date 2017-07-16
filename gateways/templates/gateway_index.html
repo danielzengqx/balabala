@@ -76,8 +76,9 @@
                             <td class=" ">{{ gateway.device_status }}</td>
                             
                             <td class=" last">
-                            <a href="#"><span class="glyphicon glyphicon-pencil  blue" aria-hidden="true"></span></a>
-                            <a href="#"><span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true"></span></a>
+                            <a href="/gateways/modify/{{ gateway.gateway_id }}"><span class="glyphicon glyphicon-pencil  blue" aria-hidden="true"></span></a>
+                            <!--a href="#"><span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true"></span></a-->
+							<span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true" id="{{ gateway.gateway_id }}" onClick="delete_gateway(this.id)"></span>
                               </td>
                           </tr> 
                         {% endfor %}
@@ -275,6 +276,22 @@
     function closeInfoWindow() {
         map.clearInfoWindow();
     }
+
+	//删除gateway
+      function delete_gateway(gateway_id)
+      {
+      var result = confirm("Are you sure to delete the service?");
+      if (result) {
+          //Logic to delete the item
+          $.post( "/gateways/delete/"+gateway_id+"/", function( data ) {
+            // $( ".result" ).html( data );  //insert data from the request to the page if need
+            location.reload();   //Regresh the page
+
+          });
+
+
+      }
+    };
 </script>
 <script type="text/javascript" src="https://webapi.amap.com/demos/js/liteToolbar.js"></script>
   
