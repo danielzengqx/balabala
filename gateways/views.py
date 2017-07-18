@@ -196,3 +196,9 @@ class GatewayDataList(generics.ListCreateAPIView):
 class GatewayDataDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = GatewayData.objects.all()
     serializer_class = GatewayDataSerializer
+
+
+def listgateways():
+    gateways = Gateway.objects.all()
+    for gateway in gateways:
+        print(gateway.gateway_id, '==', gateway.gateway_name, sep=' ')

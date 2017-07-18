@@ -56,7 +56,7 @@ class NodeRawData(models.Model):
     data = models.CharField(max_length=128, default='')
     node = models.ForeignKey('LoRaNode', on_delete=models.SET_NULL, blank=True, null=True,)
     gateway = models.ForeignKey('gateways.Gateway', on_delete=models.SET_NULL, blank=True, null=True,)
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return str(self.data)
@@ -74,7 +74,7 @@ class ServiceData(models.Model):
 
     node = models.ForeignKey('LoRaNode', on_delete=models.SET_NULL, blank=True, null=True,)
     gateway = models.ForeignKey('gateways.Gateway', on_delete=models.SET_NULL, blank=True, null=True,)
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return str(self.data1)

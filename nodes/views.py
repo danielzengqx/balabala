@@ -315,3 +315,116 @@ def servicedata_create(types='carport', **info):
         print("service data create fail, unknow service type: %s!\n" % (types))
 
         return 0
+
+
+def listnodes():
+    all_nodes = LoRaNode.objects.order_by('node_id')
+    for loranode in all_nodes:
+        print(loranode.node_id, '==', loranode.node_name, sep=' ')
+
+
+def create_rawdata(timestart, timeend, timestep, nodeid, gatewayid):
+    import calendar
+    import pytz
+    try:
+        loranode = LoRaNode.objects.get(node_id=nodeid)
+    except LoRaNode.DoesNotExist:
+        print("loranode with ID %s doesn't exist!" % (nodeid))
+        return
+
+    try:
+        gateway = Gateway.objects.get(gateway_id=gatewayid)
+    except Gateway.DoesNotExist:
+        print("gateway with ID %s doesn't exist!" % (gatewayid))
+        return
+
+
+
+    m_timestart = re.match(r'^(?P<year>\d{4})\-(?P<mon>\d{1,2})\-(?P<day>\d{1,2})$', str(timestart))
+    m_timeend = re.match(r'^(?P<year>\d{4})\-(?P<mon>\d{1,2})\-(?P<day>\d{1,2})$', str(timeend))
+    m_timestep = re.match(r'^(?P<step>\d+)(?P<unit>mon|day|hour)$', str(timestep))
+
+    if m_timestart and m_timeend and m_timestep and (int(m_timeend.group('year')) > int(m_timestart.group('year')) or
+        (int(m_timeend.group('year')) == int(m_timestart.group('year')) and int(m_timeend.group('mon')) > int(m_timestart.group('mon'))) or
+        (int(m_timeend.group('year')) == int(m_timestart.group('year')) and int(m_timeend.group('mon')) == int(m_timestart.group('mon')) and int(m_timeend.group('day')) > int(m_timestart.group('day')))):
+        pass
+
+    else:
+        print('Args check failed: timestart=%s timeend=%s timestep=%s\n' % (timestart, timeend, timestep,))
+        return
+
+    times = []
+    if m_timestep.group('unit') == 'mon':
+        year = int(m_timestart.group('year'))
+        mon = int(m_timestart.group('mon')) - int(m_timestep.group('step'))
+        for i in range(0, (int(m_timeend.group('year')) - int(m_timestart.group('year'))) * 12 + int(m_timeend.group('mon')) - int(m_timestart.group('mon')) + 1, int(m_timestep.group('step'))):
+            mon += int(m_timestep.group('step'))
+
+            if mon > 12:
+                mon -= 12
+                year = int(m_timestart.group('year')) + 1
+            times.append((year, mon, 1, 12, 1, 1))
+            print((year, mon, 1, 12, 1, 1))
+
+    elif m_timestep.group('unit') == 'day':
+        year = int(m_timestart.group('year'))
+        mon = int(m_timestart.group('mon')) - 1
+        day_init = int(m_timestart.group('day'))
+        for i in range(0, (int(m_timeend.group('year')) - int(m_timestart.group('year'))) * 12 + int(m_timeend.group('mon')) - int(m_timestart.group('mon')) + 1):
+            mon += 1
+
+            if mon > 12:
+                mon -= 12
+                year = int(m_timestart.group('year')) + 1
+
+            if i == (int(m_timeend.group('year')) - int(m_timestart.group('year'))) * 12 + int(m_timeend.group('mon')) - int(m_timestart.group('mon')):
+                for day in range(1, int(m_timeend.group('day')) + 1, int(m_timestep.group('step'))):
+                    times.append((year, mon, day, 12, 1, 1))
+                    print((year, mon, day, 12, 1, 1))
+            elif i == 0:
+                days = calendar.monthrange(year, mon)
+                for day in range(day_init, days[1] + 1, int(m_timestep.group('step'))):
+                    times.append((year, mon, day, 12, 1, 1))
+                    print((year, mon, day, 12, 1, 1))
+            else:
+                days = calendar.monthrange(year, mon)
+                for day in range(1, days[1] + 1, int(m_timestep.group('step'))):
+                    times.append((year, mon, day, 12, 1, 1))
+                    print((year, mon, day, 12, 1, 1))
+
+    elif m_timestep.group('unit') == 'hour':
+        year = int(m_timestart.group('year'))
+        mon = int(m_timestart.group('mon')) - 1
+        day_init = int(m_timestart.group('day'))
+        for i in range(0, (int(m_timeend.group('year')) - int(m_timestart.group('year'))) * 12 + int(m_timeend.group('mon')) - int(m_timestart.group('mon')) + 1):
+            mon += 1
+
+            if mon > 12:
+                mon -= 12
+                year = int(m_timestart.group('year')) + 1
+
+            if i == (int(m_timeend.group('year')) - int(m_timestart.group('year'))) * 12 + int(m_timeend.group('mon')) - int(m_timestart.group('mon')):
+                for day in range(1, int(m_timeend.group('day')) + 1):
+                    for hour in range(0, 24, int(m_timestep.group('step'))):
+                        times.append((year, mon, day, hour, 1, 1))
+                        print((year, mon, day, hour, 1, 1))
+            elif i == 0:
+                days = calendar.monthrange(year, mon)
+                for day in range(day_init, days[1] + 1):
+                    for hour in range(0, 24, int(m_timestep.group('step'))):
+                        times.append((year, mon, day, hour, 1, 1))
+                        print((year, mon, day, hour, 1, 1))
+            else:
+                days = calendar.monthrange(year, mon)
+                for day in range(1, days[1] + 1):
+                    for hour in range(0, 24, int(m_timestep.group('step'))):
+                        times.append((year, mon, day, hour, 1, 1))
+                        print((year, mon, day, hour, 1, 1))
+
+    else:
+        pass
+
+    for one_time in times:
+        rawdata = NodeRawData(data='just for test', node=loranode, gateway=gateway)
+        rawdata.time = datetime(*one_time, tzinfo=pytz.timezone('UTC'))
+        rawdata.save()
