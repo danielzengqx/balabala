@@ -10,7 +10,7 @@
                 <div class="tile-stats">
                   <a href="/services">                
                     <div class="icon"><i class="fa fa-cubes"></i></div>
-                    <div class="count">179</div>
+                    <div id="serviceNum" class="count"></div>
                     <h3>Service Numbers</h3>
                     <p>click to view.</p>
                   </a>
@@ -20,7 +20,7 @@
                 <div class="tile-stats">
                   <a href="/gateways">                
                     <div class="icon"><i class="fa fa-wifi"></i></div>
-                    <div class="count">179</div>
+                    <div id="gatewayNum" class="count">179</div>
                     <h3>Gateway Numbers</h3>
                     <p>click to view.</p>
                   </a>
@@ -31,7 +31,7 @@
                 <div class="tile-stats">
                   <a href="/nodes">
                     <div class="icon"><i class="fa fa-desktop"></i></div>
-                    <div class="count">179</div>
+                    <div id="nodeNum" class="count">179</div>
                     <h3>Node Numbers</h3>
                     <p>click to view.</p>
                   </a>
@@ -41,7 +41,7 @@
                 <div class="tile-stats">
                   <a href="/api">                
                     <div class="icon"><i class="fa fa-bar-chart"></i></div>
-                    <div class="count">179</div>
+                    <div id="apiNum" class="count"></div>
                     <h3>API Exchange</h3>
                     <p>click to view.</p>
                   </a>
@@ -123,7 +123,9 @@
     <!-- bootstrap-daterangepicker -->
     <script src="{% static 'vendors/moment/min/moment.min.js' %}"></script>
     <script src="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
-    
+    <!-- CountUp.js -->
+    <script src="{% static 'js/countUp.js' %}"></script>
+        
 
 
 
@@ -375,6 +377,26 @@
           $('#reportrange').data('daterangepicker').remove();
         });
       });
+
+
+
+    </script>
+
+
+    <script type="text/javascript">
+      $(document).ready(function() {      
+            var numAnim = new CountUp("serviceNum", 0, {{ service_num }}, 0, 3);
+  numAnim.start();
+
+            var numAnim = new CountUp("gatewayNum", 0, {{ gateway_num }}, 0, 3);
+  numAnim.start();
+              var numAnim = new CountUp("nodeNum", 0, {{ node_num }}, 0, 3);
+  numAnim.start();
+
+              var numAnim = new CountUp("apiNum", 0, 800, 0, 3);
+  numAnim.start();
+
+});
     </script>
 {% endblock %}
 

@@ -3,13 +3,25 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
+from services.models import Service
+from nodes.models import LoRaNode
+from gateways.models import Gateway
+
 # Create your views here.
 @login_required
 def index(request):
 	template = "index.html"
 	user = request.user.username
+	service_num = len(Service.objects.all())
+	gateway_num = len(Gateway.objects.all())
+	node_num = len(LoRaNode.objects.all())
+
+	print(service_num, gateway_num, node_num)
 	context = {
-			"user": user
+			"user": user,
+			"service_num": service_num,
+			"gateway_num": gateway_num,
+			"node_num": node_num
 
 	}
 	return render(request, template, context)
