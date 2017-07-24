@@ -5,6 +5,9 @@ from .models import Service
 from nodes.models import LoRaNode
 from django.conf import settings
 import os
+from datetime import datetime
+import calendar
+import pytz
 ### REST API ###
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -93,12 +96,44 @@ def service_detail(request, service_id):
     single_service.active_nodes = active_nodes
     single_service.save()
 
-    #service_nodes = LoRaNode.objects.filter(service=service_id)
+    time_now = datetime.now()
+    mon = time_now.month
+    year = time_now.year
+    times = []
+    for i in range(12):
+        if mon > i:
+            times.append((year, mon - i))
+        else:
+            times.append((year - 1, mon + 12 - i))
+
+    nodes_info = {}
+    for year, mon in times:
+        days = calendar.monthrange(year, mon)
+        nodes = LoRaNode.objects.filter(service=service_id).filter(register_time__gte=datetime(year, mon, 1, tzinfo=pytz.timezone('UTC'))).filter(register_time__lt=datetime(year, mon, days[1], tzinfo=pytz.timezone('UTC')))
+        register_nodes = nodes.count()
+        active_nodes = 0
+        for node in nodes:
+            rawdatas = ''
+            try:
+                rawdatas = node.noderawdata_set.filter(time__gte=datetime(year, mon, 1, tzinfo=pytz.timezone('UTC'))).filter(time__lt=datetime(year, mon, days[1], tzinfo=pytz.timezone('UTC')))
+            except:
+                print("Get rawdata filed!\n")
+
+            if rawdatas:
+                active_nodes += 1
+
+        nodes_info[(year, mon)] = {
+            'register_nodes': register_nodes,
+            'active_nodes': active_nodes,
+        }
+        #print(year, mon, register_nodes, active_nodes)
+
 
     template = "service_detail.html"
     context = {
-        "single_service":single_service,
-        "service_nodes":loranodes
+        "single_service": single_service,
+        "service_nodes": loranodes,
+        "nodes_info": nodes_info,
     }
     return render(request, template, context)
 
