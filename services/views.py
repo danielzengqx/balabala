@@ -24,11 +24,10 @@ def index(request):
     loranodes = ''
     for service in all_services:
         try:
-            loranodes = service.node_set.all().order_by('-register_time')
+            loranodes = service.loranode_set.all().order_by('-register_time')
         except Exception as e:
             print("Get loranodes filed!\n", e)
 
-        print(loranodes)
         register_nodes = 0
         active_nodes = 0
         for node in loranodes:
