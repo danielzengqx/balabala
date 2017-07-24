@@ -3,7 +3,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from .form import ServiceInfoForm
 from .models import Service
 from nodes.models import LoRaNode
-
+from django.conf import settings
+import os
 ### REST API ###
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -151,6 +152,31 @@ def service_delete(request, service_id):
         return HttpResponse('Delete service %s failed!' % service_id)
 
     return HttpResponseRedirect('/services/')
+
+# Create your views here.
+def map(request):
+    all_nodes = LoRaNode.objects.all()
+    print(all_nodes)
+    print(settings.MEDIA_ROOT)
+
+    path = "10w.txt"
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    with open(file_path, "w") as f:
+            for node in all_nodes:
+                f.write(str(node.latitude))
+                f.write(", ")
+                f.write(str(node.longitude))
+                f.write("\n")
+
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            # response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            # response['Content-Disposition'] = 'content; filename=' + os.path.basename(file_path)
+            # return response
+            # f = open(file_path)
+            content = fh.read()
+            return HttpResponse(content, content_type='text/plain;charset=utf-8')
+
 
 
 #### REST API ###

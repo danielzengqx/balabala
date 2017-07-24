@@ -7,6 +7,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     url(r'^$',views.index, name='index'),
+    url(r'^data',views.map, name='map'),    
     url(r'^add/$', views.service_add, name='service_add'),
     url(r'^detail/(?P<service_id>\w+)/$', views.service_detail, name='service_detail'),
     url(r'^modify/(?P<service_id>\w+)/$', views.service_modify, name='service_modify'),

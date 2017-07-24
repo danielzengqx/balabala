@@ -131,6 +131,8 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 ### REST Framework ###
 REST_FRAMEWORK = {
@@ -145,6 +147,7 @@ REST_FRAMEWORK = {
 
 ### Redirect after user login, default is /accounts/profile/ ###
 LOGIN_REDIRECT_URL  = "/"
+
 
 
 ### to send email ###
