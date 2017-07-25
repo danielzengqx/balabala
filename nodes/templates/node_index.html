@@ -207,14 +207,24 @@
 
     {% for node in all_nodes %}
     addMarker("{{ node.latitude }}", "{{ node.longitude }}", "{{ node.node_id }}", "{{ node.node_name }}", "{{ node.node_type }}", "{{ node.device_status }}");
+
+        {% if node.device_status == 'active' %}
+            addMarker("{{ node.latitude }}", "{{ node.longitude }}", "{{ node.node_id }}", "{{ node.node_name }}", "{{ node.node_type }}", "{{ node.device_status }}", "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png");
+
+        {% else %}
+            addMarker("{{ node.latitude }}", "{{ node.longitude }}", "{{ node.node_id }}", "{{ node.node_name }}", "{{ node.node_type }}", "{{ node.device_status }}", "http://webapi.amap.com/theme/v1.3/markers/n/mark_r.png");
+
+        {% endif %}
+
     {% endfor %}
 
     //添加marker标记
-    function addMarker(l, s, id, name, type, status) {
+    function addMarker(l, s, id, name, type, status, iconImg) {
         //map.clearMap();
         var marker = new AMap.Marker({
             map: map,
-            position: [l, s]
+            position: [l, s],
+            icon: iconImg
         });
         //鼠标点击marker弹出自定义的信息窗体
         AMap.event.addListener(marker, 'click', function() {

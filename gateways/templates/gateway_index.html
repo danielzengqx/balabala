@@ -4,7 +4,7 @@
         <!-- page content -->
 
         <div class="right_col" role="main">
-
+<img src="{% static 'images/mark_r.png' %}">
 
           <!-- content -->
               <div class="col-md-12 col-sm-12 col-xs-12">
@@ -204,15 +204,30 @@
     });    
 
     {% for gateway in gateways %}
-    addMarker("{{ gateway.latitude }}", "{{ gateway.longitude }}", "{{ gateway.gateway_id }}", "{{ gateway.gateway_name }}", "{{ gateway.address }}", "{{ gateway.device_status }}");
+    {% if gateway.device_status == 'active' %}
+     addMarker("{{ gateway.latitude }}", "{{ gateway.longitude }}", "{{ gateway.gateway_id }}", "{{ gateway.gateway_name }}", "{{ gateway.address }}", "{{ gateway.device_status }}", "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png");
+    {% else %}
+     addMarker("{{ gateway.latitude }}", "{{ gateway.longitude }}", "{{ gateway.gateway_id }}", "{{ gateway.gateway_name }}", "{{ gateway.address }}", "{{ gateway.device_status }}", "http://webapi.amap.com/theme/v1.3/markers/n/mark_r.png");
+     {% endif %}
     {% endfor %}
 
     //添加marker标记
-    function addMarker(l, s, id, name, address, status) {
+    function addMarker(l, s, id, name, address, status, iconImg) {
         //map.clearMap();
         var marker = new AMap.Marker({
             map: map,
-            position: [l, s]
+            position: [l, s],
+            // icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_r.png",
+            icon: iconImg, 
+            // iconStyle: "black",
+
+            // icon: new AMap.Icon({            
+            //     size: new AMap.Size(80, 100),  //图标大小
+            //     // image: "http://webapi.amap.com/theme/v1.3/markers/n/mark_r.png",
+            //     image: "{% static 'images/mark_r.png' %}",
+            //     imageOffset: new AMap.Pixel(0, -60)
+            // })
+
         });
         //鼠标点击marker弹出自定义的信息窗体
         AMap.event.addListener(marker, 'click', function() {
