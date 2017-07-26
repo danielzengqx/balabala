@@ -83,6 +83,8 @@ def loranode_detail(request, node_id):
     except:
         print("Get data filed!\n")
 
+    loranodedata_update(node_id)
+
     if rawdatas:
         if (datetime.now() - localtime(rawdatas[0].time).replace(tzinfo=None)).seconds > loranode.heartbeat_interval:
             loranode.device_status = 'inactive'
@@ -94,7 +96,6 @@ def loranode_detail(request, node_id):
         else:
             loranode.device_status = 'active'
     loranode.save()
-    loranodedata_update(node_id)
     return render_to_response("node_detail.html", {'loranode': loranode, 'rawdatas': rawdatas, 'servicedatas': servicedatas})
 
 
@@ -221,6 +222,7 @@ def loranodedata_update(node_id):
     for data in old_data:
         try:
             data.delete()
+
         except:
             print("delete date fail!\n")
 
@@ -228,6 +230,7 @@ def loranodedata_update(node_id):
     for data in old_data:
         try:
             data.delete()
+
         except:
             print("delete date fail!\n")
 

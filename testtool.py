@@ -9,7 +9,6 @@ import re, os, time, datetime, sys
 import argparse
 import signal
 import threading, subprocess
-import queue, yaml
 import pexpect
 from cmd import Cmd
 
