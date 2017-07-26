@@ -99,7 +99,8 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Gateways Location<small></h2>
-
+                    <!-- <button id="setFitView">ShowAll</button> -->
+                    <!-- <small id="centerCoord"> </small> -->
                     <div class="clearfix"></div>
                   </div>
 
@@ -294,6 +295,19 @@
     function closeInfoWindow() {
         map.clearInfoWindow();
     }
+
+    var center = map.getCenter();
+    // var centerText = '当前中心点坐标：' + center.getLng() + ',' + center.getLat();
+    // document.getElementById('centerCoord').innerHTML = centerText;
+
+    // 添加事件监听, 使地图自适应显示到合适的范围
+    // AMap.event.addDomListener(document.getElementById('setFitView'), 'click', function() {
+    //     var newCenter = map.setFitView();
+    //     document.getElementById('centerCoord').innerHTML = '当前中心点坐标：' + newCenter.getCenter();
+    // });
+
+    var newCenter = map.setFitView();
+    document.getElementById('centerCoord').innerHTML = '当前中心点坐标：' + newCenter.getCenter();    
 
 	//删除gateway
       function delete_gateway(gateway_id)

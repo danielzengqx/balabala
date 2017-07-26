@@ -291,6 +291,20 @@
     function closeInfoWindow() {
         map.clearInfoWindow();
     }
+
+    // var center = map.getCenter();
+    // var centerText = '当前中心点坐标：' + center.getLng() + ',' + center.getLat();
+    // document.getElementById('centerCoord').innerHTML = centerText;
+
+    // 添加事件监听, 使地图自适应显示到合适的范围
+    // AMap.event.addDomListener(document.getElementById('setFitView'), 'click', function() {
+    //     var newCenter = map.setFitView();
+    //     document.getElementById('centerCoord').innerHTML = '当前中心点坐标：' + newCenter.getCenter();
+    // });
+
+    //自动自适应
+    var newCenter = map.setFitView();
+
 	
 	//删除node
 	function delete_node(node_id)
