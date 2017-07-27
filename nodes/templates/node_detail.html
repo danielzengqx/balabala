@@ -9,7 +9,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2><a href="/services/">Node Information </a> > {{ loranode.node_name }} </h2>
+                    <h2><a href="/nodes/">Node Information </a> > {{ loranode.node_name }} </h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -181,22 +181,22 @@
                         <tr>
                           <th scope="row">Send message to this node</th>
                           <td>
-                              <span class="glyphicon glyphicon-envelope blue" aria-hidden="true"></span> 
+                              <span class="glyphicon glyphicon-envelope blue" aria-hidden="true"></span>
 
                           </td>
                         </tr>
                         <tr>
                           <th scope="row">Enabled/Disable this node</th>
                           <td>
-                              <span class="glyphicon glyphicon-pencil  blue" aria-hidden="true"></span> 
+                              <span class="glyphicon glyphicon-pencil  blue" aria-hidden="true"></span>
                           </td>
                         </tr>
                         <tr>
                           <th scope="row">Delete this node</th>
                           <td>
-						      <span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true" id="{{ node.node_id }}" onClick="delete_node(this.id)"></span>                           
+						      <span class="glyphicon glyphicon-remove-sign  red" aria-hidden="true" id="{{ node.node_id }}" onClick="delete_node(this.id)"></span>
                           </td>
-                        </tr>                                        
+                        </tr>
                       </tbody>
                     </table>
 
@@ -242,7 +242,7 @@
 						  <th>Gateway ID</th>
                           <th>Time</th>
                           <th>Battery</th>
-						  <th>RawData</th>						  
+						  <th>RawData</th>
                         </tr>
                       </thead>
 
@@ -339,7 +339,7 @@
 					data: [82, 23, 66, 9, 99, 4, 2]
 				  }]
 				},
-			  });	  
+			  });
 
 	//删除node
 	function delete_node(node_id)
