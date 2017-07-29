@@ -103,7 +103,14 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Nodes Location<small></h2>
+                    <h2>Nodes Location
+
+                    <small>
+                        <label>按关键字搜索：</label>
+                        <input type="text" placeholder="请输入关键字进行搜索" id="tipinput">
+                        <label>左击获取经纬度：</label>
+                        <input type="text" readonly="true" id="lnglat">
+                    </small></h2>
 
                     <div class="clearfix"></div>
                   </div>
@@ -145,6 +152,7 @@
 <!-- Geomap --> 
     <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
     <script src="https://webapi.amap.com/maps?v=1.3&key=9f0903994aaaca5964b34106c4520dee"></script>
+    <script src="http://webapi.amap.com/maps?v=1.3&key=9f0903994aaaca5964b34106c4520dee&plugin=AMap.Autocomplete"></script>    
     <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
     <style type="text/css">
         .info {
@@ -305,6 +313,22 @@
     //自动自适应
     var newCenter = map.setFitView();
 
+
+    
+    //为地图注册click事件获取鼠标点击出的经纬度坐标
+    var clickEventListener = map.on('click', function(e) {
+        document.getElementById("lnglat").value = e.lnglat.getLng() + ',' + e.lnglat.getLat()
+    });
+    var auto = new AMap.Autocomplete({
+        input: "tipinput"
+    });
+    AMap.event.addListener(auto, "select", select);//注册监听，当选中某条记录时会触发
+    function select(e) {
+        if (e.poi && e.poi.location) {
+            map.setZoom(15);
+            map.setCenter(e.poi.location);
+        }
+    }
 	
 	//删除node
 	function delete_node(node_id)
