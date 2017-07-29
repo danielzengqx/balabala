@@ -11,7 +11,8 @@ import signal
 import threading, subprocess
 import pexpect
 from cmd import Cmd
-
+import uuid
+import random
 
 class arg_handle():
     def __init__(self, name=' '):
@@ -156,6 +157,13 @@ class my_cmd(Cmd):
         self.shell.send('import gateways.views')
         self.shell.send('gateways.views.listgateways()')
 
+    def help_listservices(self):
+        P.common_p("list all the nodes")
+
+    def do_listservices(self, arg, opts=None):
+        self.shell.send('import services.views')
+        self.shell.send('services.views.listservices()')
+
     def help_createrawdata(self):
         P.common_p("createrawdata timestart timeend step nodeid gatewayid")
         P.common_p("    createrawdata 2016-12-27 2017-1-8 x[mon|day|hour] 1 LO470CNSZDT001")
@@ -163,6 +171,29 @@ class my_cmd(Cmd):
     def do_createrawdata(self, arg, opts=None):
         self.shell.send('import nodes.views')
         self.shell.send('nodes.views.create_rawdata(timestart="%s", timeend="%s", timestep="%s", nodeid="%s", gatewayid="%s")' % tuple(arg.split()))
+
+
+    def help_addnodes(self):
+        P.common_p("addnodes  numbersToAdd service_id")
+
+
+    def do_addnodes(self, arg, opts=None):
+        self.shell.send('import nodes.views')
+        self.shell.send('from nodes.models import *')
+        for i in range(int(arg.split()[0])):
+            print(i)
+
+            ## make a small range inside china
+            rand_longitude = random.uniform(99, 118)
+            rand_latitude =  random.uniform(21, 37)
+            nodeid = str(uuid.uuid4())[:6].replace('-', '').lower()
+            nodename = str(uuid.uuid4())[:8].replace('-', '').lower()
+            DevAddr = str(uuid.uuid4())[:11].replace('-', '').lower()
+            EUI = str(uuid.uuid4())[:10].replace('-', '').lower()
+
+            self.shell.send('LoRaNode.objects.create(service_id="%s", node_id="%s", DevAddr="%s", EUI="%s", latitude=%s, longitude=%s)' % (arg.split()[1], nodeid, DevAddr, EUI, rand_latitude, rand_longitude))
+
+    
 
     def default(self, arg, opts=None):
         try:

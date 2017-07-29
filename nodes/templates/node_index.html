@@ -72,7 +72,7 @@
                             <td class=" "><a href="/nodes/detail/{{ node.node_id }}">{{ node.node_id }} </a></td>
                             <td class=" "><a href="/nodes/detail/{{ node.node_id }}">{{ node.node_name }} </td>
                             <td class=" ">{{ node.node_type }} </i></td>
-                            <td class=" ">[ E: {{ node.latitude }} | N: {{ node.longitude }} ]</td>
+                            <td class=" ">[ E: {{ node.longitude }} | N: {{ node.latitude }} ]</td>
 							{% if node.device_control == "ENABLED" %}
                             <td class=" "><span class="glyphicon glyphicon-ok  green" aria-hidden="true"></span></td>
 							{% else %}
@@ -214,7 +214,7 @@
     });    
 
     {% for node in all_nodes %}
-    addMarker("{{ node.latitude }}", "{{ node.longitude }}", "{{ node.node_id }}", "{{ node.node_name }}", "{{ node.node_type }}", "{{ node.device_status }}");
+    addMarker("{{ node.longitude }}", "{{ node.latitude }}", "{{ node.node_id }}", "{{ node.node_name }}", "{{ node.node_type }}", "{{ node.device_status }}");
 
         {% if node.device_status == 'active' %}
             addMarker("{{ node.latitude }}", "{{ node.longitude }}", "{{ node.node_id }}", "{{ node.node_name }}", "{{ node.node_type }}", "{{ node.device_status }}", "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png");

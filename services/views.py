@@ -213,6 +213,10 @@ def map(request):
             return HttpResponse(content, content_type='text/plain;charset=utf-8')
 
 
+def listservices():
+    services = Service.objects.all()
+    for service in services:
+        print(service.service_id, '==', service.service_name, sep=' ')
 
 #### REST API ###
 class ServiceList(generics.ListCreateAPIView):
