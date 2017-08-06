@@ -191,16 +191,20 @@ def service_delete(request, service_id):
 # Create your views here.
 def map(request):
     all_nodes = LoRaNode.objects.all()
-    print(all_nodes)
+    for node in all_nodes:
+        print(node)
+        
     print(settings.MEDIA_ROOT)
 
     path = "10w.txt"
     file_path = os.path.join(settings.MEDIA_ROOT, path)
     with open(file_path, "w") as f:
             for node in all_nodes:
-                f.write(str(node.latitude))
-                f.write(", ")
                 f.write(str(node.longitude))
+                f.write(", ")                
+                f.write(str(node.latitude))
+
+
                 f.write("\n")
 
     if os.path.exists(file_path):
