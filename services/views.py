@@ -108,7 +108,7 @@ def service_detail(request, service_id):
     nodes_info = {}
     for year, mon in times:
         days = calendar.monthrange(year, mon)
-        nodes = LoRaNode.objects.filter(service=service_id).filter(register_time__gte=datetime(year, mon, 1, tzinfo=pytz.timezone('UTC'))).filter(register_time__lt=datetime(year, mon, days[1], tzinfo=pytz.timezone('UTC')))
+        nodes = LoRaNode.objects.filter(service=service_id).filter(register_time__lte=datetime(year, mon, days[1], tzinfo=pytz.timezone('UTC')))
         register_nodes = nodes.count()
         active_nodes = 0
         for node in nodes:
@@ -121,11 +121,11 @@ def service_detail(request, service_id):
             if rawdatas:
                 active_nodes += 1
 
-        nodes_info[(year, mon)] = {
+        nodes_info['{}-{}'.format(year, mon)] = {
             'register_nodes': register_nodes,
             'active_nodes': active_nodes,
         }
-        #print(year, mon, register_nodes, active_nodes)
+        #print(nodes_info)
 
 
     template = "service_detail.html"
@@ -193,7 +193,7 @@ def map(request):
     all_nodes = LoRaNode.objects.all()
     for node in all_nodes:
         print(node)
-        
+
     print(settings.MEDIA_ROOT)
 
     path = "10w.txt"
@@ -201,7 +201,7 @@ def map(request):
     with open(file_path, "w") as f:
             for node in all_nodes:
                 f.write(str(node.longitude))
-                f.write(", ")                
+                f.write(", ")
                 f.write(str(node.latitude))
 
 
@@ -221,6 +221,50 @@ def listservices():
     services = Service.objects.all()
     for service in services:
         print(service.service_id, '==', service.service_name, sep=' ')
+
+
+def services_data(date_start, date_end):
+    s_year, s_mon = date_start.split('-')
+    e_year, e_mon = date_end.split('-')
+    s_year, s_mon, e_year, e_mon = [int(item) for item in [s_year, s_mon, e_year, e_mon]]
+    if (s_year < e_year) or (s_year == e_year and s_mon <= e_mon):
+        pass
+    else:
+        print("Arg wrong!\n")
+        return
+
+    all_services = Service.objects.all()
+    services_date = {}
+    while(True):
+        for single_service in all_services:
+            services_date[single_service.service_id] = {}
+
+            days = calendar.monthrange(s_year, s_mon)
+            nodes = LoRaNode.objects.filter(service=single_service.service_id).filter(register_time__lte=datetime(s_year, s_mon, days[1], tzinfo=pytz.timezone('UTC')))
+            data_num = 0
+            for node in nodes:
+                try:
+                    rawdatas = node.noderawdata_set.filter(time__gte=datetime(s_year, s_mon, 1, tzinfo=pytz.timezone('UTC'))).filter(time__lt=datetime(s_year, s_mon, days[1], tzinfo=pytz.timezone('UTC')))
+                    data_num += rawdatas.count()
+                except:
+                    print("Get rawdata filed!\n")
+
+
+            services_date[single_service.service_id]['{}-{}'.format(s_year, s_mon)] = {
+                'data_num': data_num,
+            }
+            print(single_service.service_id, s_year, s_mon, services_date[single_service.service_id]['{}-{}'.format(s_year, s_mon)], '\n')
+
+        if s_year == e_year and s_mon == e_mon:
+            break
+
+        s_mon += 1
+        if s_mon > 12:
+            s_mon = 1
+            s_year += 1
+
+    return services_date
+
 
 #### REST API ###
 class ServiceList(generics.ListCreateAPIView):

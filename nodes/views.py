@@ -29,7 +29,8 @@ def index(request):
             print("Get rawdata filed!\n")
 
         if rawdatas:
-            if (datetime.now() - localtime(rawdatas[0].time).replace(tzinfo=None)).seconds > loranode.heartbeat_interval:
+            if (datetime.now() > localtime(rawdatas[0].time).replace(tzinfo=None)
+                and (datetime.now() - localtime(rawdatas[0].time).replace(tzinfo=None)).seconds > loranode.heartbeat_interval):
                 loranode.device_status = 'inactive'
             else:
                 loranode.device_status = 'active'
@@ -71,6 +72,7 @@ def loranode_detail(request, node_id):
     except LoRaNode.DoesNotExist:
         return HttpResponse("loranode with ID %s doesn't exist!" % (node_id))
 
+    loranodedata_update(node_id)
     rawdatas = ''
     try:
         rawdatas = loranode.noderawdata_set.all().order_by('-time')
@@ -83,10 +85,9 @@ def loranode_detail(request, node_id):
     except:
         print("Get data filed!\n")
 
-    loranodedata_update(node_id)
-
     if rawdatas:
-        if (datetime.now() - localtime(rawdatas[0].time).replace(tzinfo=None)).seconds > loranode.heartbeat_interval:
+        if (datetime.now() > localtime(rawdatas[0].time).replace(tzinfo=None)
+            and (datetime.now() - localtime(rawdatas[0].time).replace(tzinfo=None)).seconds > loranode.heartbeat_interval):
             loranode.device_status = 'inactive'
         else:
             loranode.device_status = 'active'
