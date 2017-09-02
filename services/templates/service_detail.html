@@ -60,7 +60,7 @@
                               </tr>
                               <tr>
                                 <th scope="row">Service ID</th>
-                                <td>{{ single_service.service_id }}</td>
+                                <td id="service_id">{{ single_service.service_id }}</td>
                               </tr>
                               <tr>
                                 <th scope="row">Current Nodes</th>
@@ -234,39 +234,80 @@
 
     <!-- Scripts for mybarChart -->
     <script>
+
+      // Chart.defaults.global.legend = {
+      //   enabled: false
+      // };
+
+
+
+
+
+$(document).ready(function(){
+
+      // Bar chart
       Chart.defaults.global.legend = {
         enabled: false
       };
 
 
-      // Bar chart
-      var ctx = document.getElementById("barChart");
-      var mybarChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ["January", "February", "March", "April", "May", "June", "July"],
-          datasets: [{
-            label: '# of Votes',
-            backgroundColor: "#26B99A",
-            data: [100, 30, 40, 28, 92, 50, 45]
-          }, {
-            label: '# of Votes',
-            backgroundColor: "#03586A",
-            data: [99, 56, 25, 48, 72, 34]
-          }]
-        },
 
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
-              }
-            }]
+        updateChart();
+
+
+
+  function  updateChart(){
+    var serviceID = document.getElementById("service_id").innerText;
+    alert(serviceID);
+
+
+    $.ajax(
+          {
+            url:"/services/getDataNum/" + serviceID,
+            // async:false,
+            // data: {time:num},
+            dataType: "json",
           }
-        }
-      });
+          ).done(function(serviceData){
 
+        //chart
+        var ctx = document.getElementById("barChart");
+        var mybarChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            // labels: ["January", "February", "March", "April"],
+            labels:   serviceData.timeAxis,
+            datasets: [{
+              label: '# of Votes',
+              backgroundColor: "#26B99A",
+              // data: [100, 30, 40,10]
+              data: serviceData.dataNum
+            },
+             // {
+             //  label: '# of Votes',
+             //  backgroundColor: "#03586A",
+             //  data: [99, 56, 25, 48, 72, 34]
+             //  }
+              ]
+          },
+
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
+        });
+        //chart
+
+  });
+
+};
+
+})//document.ready
 
 
 

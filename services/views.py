@@ -128,11 +128,26 @@ def service_detail(request, service_id):
         #print(nodes_info)
 
 
+
+    time_axis = list()
+    for i in calendar.month_name[1:]:
+        print("i ", i)
+        time_axis.append(str(i))
+        if i == time_now.strftime("%B"):
+            break
+
+
+    print(time_axis)
+    
+    # time_axis, data_num = getDataNum(service_id, time_now.year() + "-01", time_now.strftime("%Y-%m-%d"))
+
+
     template = "service_detail.html"
     context = {
         "single_service": single_service,
         "service_nodes": loranodes,
         "nodes_info": nodes_info,
+        "time_axis": time_axis
     }
     return render(request, template, context)
 
@@ -223,7 +238,7 @@ def listservices():
         print(service.service_id, '==', service.service_name, sep=' ')
 
 
-def services_data(date_start, date_end):
+def service_data(service_id, date_start, date_end):
     s_year, s_mon = date_start.split('-')
     e_year, e_mon = date_end.split('-')
     s_year, s_mon, e_year, e_mon = [int(item) for item in [s_year, s_mon, e_year, e_mon]]
@@ -233,27 +248,27 @@ def services_data(date_start, date_end):
         print("Arg wrong!\n")
         return
 
-    all_services = Service.objects.all()
-    services_date = {}
+    single_service = Service.objects.get(service_id=service_id)
+    service_data = {}
+    service_data[single_service.service_id] = {}
+
     while(True):
-        for single_service in all_services:
-            services_date[single_service.service_id] = {}
 
-            days = calendar.monthrange(s_year, s_mon)
-            nodes = LoRaNode.objects.filter(service=single_service.service_id).filter(register_time__lte=datetime(s_year, s_mon, days[1], tzinfo=pytz.timezone('UTC')))
-            data_num = 0
-            for node in nodes:
-                try:
-                    rawdatas = node.noderawdata_set.filter(time__gte=datetime(s_year, s_mon, 1, tzinfo=pytz.timezone('UTC'))).filter(time__lt=datetime(s_year, s_mon, days[1], tzinfo=pytz.timezone('UTC')))
-                    data_num += rawdatas.count()
-                except:
-                    print("Get rawdata filed!\n")
+        days = calendar.monthrange(s_year, s_mon)
+        nodes = LoRaNode.objects.filter(service=single_service.service_id).filter(register_time__lte=datetime(s_year, s_mon, days[1], tzinfo=pytz.timezone('UTC')))
+        data_num = 0
+        for node in nodes:
+            try:
+                rawdatas = node.noderawdata_set.filter(time__gte=datetime(s_year, s_mon, 1, tzinfo=pytz.timezone('UTC'))).filter(time__lt=datetime(s_year, s_mon, days[1], tzinfo=pytz.timezone('UTC')))
+                data_num += rawdatas.count()
+            except:
+                print("Get rawdata filed!\n")
 
 
-            services_date[single_service.service_id]['{}-{}'.format(s_year, s_mon)] = {
-                'data_num': data_num,
-            }
-            print(single_service.service_id, s_year, s_mon, services_date[single_service.service_id]['{}-{}'.format(s_year, s_mon)], '\n')
+        service_data[single_service.service_id]['{}/{}'.format(s_year, s_mon)] = {
+            'data_num': data_num,
+        }
+        print(single_service.service_id, s_year, s_mon, service_data[single_service.service_id]['{}/{}'.format(s_year, s_mon)], '\n')
 
         if s_year == e_year and s_mon == e_mon:
             break
@@ -263,7 +278,25 @@ def services_data(date_start, date_end):
             s_mon = 1
             s_year += 1
 
-    return services_date
+    return service_data
+
+def getDataNum(request, service_id, date_start=str(datetime.now().year) + "-01", date_end=datetime.today().strftime("%Y-%m")):
+    data = service_data(service_id, date_start, date_end)
+    print(data)
+    time_axis = list()
+    import  json
+    a = [v["data_num"] for k,v  in data[service_id].items()]
+    print(a)
+
+    result = json.dumps({
+        # "timeAxis":[10,20,30,40],
+        "timeAxis": list(data[service_id].keys()),
+        # "dataNum":[10,20,30,40]
+        "dataNum": a
+        })
+
+    print(result)
+    return HttpResponse(result, content_type='application/json')
 
 
 #### REST API ###

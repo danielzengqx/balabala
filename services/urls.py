@@ -12,6 +12,8 @@ urlpatterns = [
     url(r'^detail/(?P<service_id>\w+)/$', views.service_detail, name='service_detail'),
     url(r'^modify/(?P<service_id>\w+)/$', views.service_modify, name='service_modify'),
     url(r'^delete/(?P<service_id>\w+)/$', views.service_delete, name='service_delete'),
+    url(r'^getDataNum/(?P<service_id>\w+)/$', views.getDataNum, name='getDataNum'),
+    url(r'^getDataNum/$', views.getDataNum, name='getDataNum'),
 
 	### REST API ###
 	url(r'^api/$', views.ServiceList.as_view()),
