@@ -155,6 +155,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.163.com'
 EMAIL_PORT = 25
 EMAIL_HOST_USER='cheer_zeng@163.com'
-EMAIL_HOST_PASSWORD = 'mail789'
 
 DEFAULT_FROM_EMAIL = 'cheer_zeng@163.com'
